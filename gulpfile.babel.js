@@ -43,7 +43,7 @@ export const scripts = () => {
 }
 
 export const styles = () => {
-    return src(['assets/scss/styles.scss', 'assets/scss/admin.scss'])
+    return src(['assets/scss/frontend.scss', 'assets/scss/admin.scss'])
         .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
