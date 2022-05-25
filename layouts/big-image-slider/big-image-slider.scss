@@ -1,0 +1,131 @@
+@import '../../assets/scss/settings/variables';
+
+.f-big-image-slider {
+  background: $black;
+
+  .slide {
+    width: 100%;
+    background: #000;
+    min-height: 100%;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #000000 55.15%, rgba(0, 0, 0, 0) 100%);
+    }
+
+    &__content {
+      padding-top: 140px;
+      padding-bottom: 120px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      z-index: 2;
+      height: 100%;
+    }
+
+    &__title {
+      color: $white;
+    }
+
+    &__subtitle {
+      color: $accent;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    &__text {
+      margin-top: 10px;
+      color: $greyText;
+    }
+
+    &__price {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      column-gap: 8px;
+    }
+
+    &__price-icon {
+      height: 26px;
+      width: auto;
+    }
+
+    &__buttons {
+      margin-top: 25px;
+
+      > * {
+        margin-bottom: 15px;
+      }
+    }
+
+    &__img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 60%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .o-slider__controls {
+    top: 95%;
+  }
+
+  &.is-header {
+    margin-top: 0 !important;
+
+    .slide__content {
+      padding-top: 160px;
+      padding-bottom: 30px;
+    }
+
+    @media screen and (min-width: $container-md) {
+      .slide__content {
+        padding-top: 250px;
+        padding-bottom: 80px;
+      }
+    }
+
+  }
+
+  @media screen and (min-width: $container-md) {
+    .slide {
+      &__title, &__subtitle {
+        max-width: 60%;
+      }
+
+      &__buttons {
+        display: flex;
+        column-gap: 15px;
+
+        > * {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .o-slider__index {
+      display: none;
+    }
+
+    .o-slider__prev {
+      opacity: 0;
+    }
+
+    .o-slider__controls {
+      top: 50%;
+    }
+
+    &__content {
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+  }
+}
