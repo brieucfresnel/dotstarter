@@ -1,3 +1,33 @@
-$primary: #222222;
-$secondary: #333333;
+/* ----- SETTINGS ----- */
+/* Legacies, settings and overall configurations */
+
+@import './settings/reset';
+@import './settings/variables';
+@import './settings/helpers';
+@import './settings/fonts';
+@import './settings/typography';
+
+/* ----- LIB ----- */
+
+@import './lib/barba-transitions';
+@import './lib/flickity-min';
+
+/* ----- LAYOUT ----- */
+/* Layout and general components style */
+
+@import "./layout/container";
+@import "./layout/footer";
+@import "./layout/menu";
+
+
+/* ----- OBJECTS ----- */
+
+@import "./components/buttons";
+@import "./components/sliders";
+@import "./components/dropdown";
+
+/* ----- COMPONENTS ----- */
+
+/* TEMPLATES SPECIFICS */
+
 

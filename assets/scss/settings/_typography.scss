@@ -1,0 +1,246 @@
+$displayFont: 'DM Sans', 'Montserrat', sans-serif;
+$headingsFont: 'DM Sans', 'Montserrat', sans-serif;
+$bodyFont: 'DM Sans', 'Montserrat', sans-serif;
+
+// Mobile
+$display-m-m: 2.324rem/118% $displayFont;
+$display-s-m: 2.178rem/118% $displayFont;
+$display-xs-m: 2.041rem/118% $displayFont;
+
+$heading1-m: 2.041rem/125% $headingsFont;
+$heading2-m: 1.913rem/125% $headingsFont;
+$heading3-m: 1.793rem/125% $headingsFont;
+$heading4-m: 1.68rem/125% $headingsFont;
+$heading5-m: 1.574rem/125% $headingsFont;
+$heading6-m: 1.476rem/125% $headingsFont;
+$heading7-m: 1.383rem/125% $headingsFont;
+$heading8-m: 1.296rem/125% $headingsFont;
+$heading9-m: 0.875rem/125% $headingsFont;
+
+$body-xxxl-m: 500 1.476rem/2rem $bodyFont;
+$body-xxl-m: 500 1.215rem/1.75rem $bodyFont;
+$body-xl-m: 1.139rem/140% $bodyFont;
+$body-lg-m: 500 1.067rem/1.5rem $bodyFont;
+$body-md-m: 1rem/1.25rem $bodyFont;
+$body-sm-m: 0.938rem/140% $bodyFont;
+$body-xs-m: 0.878rem/1rem $bodyFont;
+
+// Desktop
+$display-m-d: 7.43rem/8rem $displayFont;
+$display-s-d: 6.192rem/6rem $displayFont;
+$display-xs-d: 5.16rem/5.418rem $displayFont;
+
+$heading1-d: 4.302rem/5rem $headingsFont;
+$heading2-d: 3.583rem/4.5rem $headingsFont;
+$heading3-d: 2.986rem/3.5rem $headingsFont;
+$heading4-d: 2.488rem/3rem $headingsFont;
+$heading5-d: 2.074rem/2.5rem $headingsFont;
+$heading6-d: 1.728rem/2rem $headingsFont;
+$heading7-d: 1.44rem/1.75rem $headingsFont;
+$heading8-d: 1.2rem/1.5rem $headingsFont;
+$heading9-d: 1rem/1.25rem $headingsFont;
+
+$body-xxxl-d: 500 2.986rem/3.5rem $bodyFont;
+$body-xxl-d: 500 1.728rem/2.25rem $bodyFont;
+$body-xl-d: 1.44rem/2rem $bodyFont;
+$body-lg-d: 500 1.26rem/1.75rem $bodyFont;
+$body-md-d: 1rem/1.5rem $bodyFont;
+$body-sm-d: 0.8rem/1.25rem $bodyFont;
+$body-xs-d: 0.64rem/1rem $bodyFont;
+
+.display-m {
+  font: $display-m-m;
+}
+.display-s {
+  font: $display-s-m;
+}
+.display-xs {
+  font: $display-xs-m;
+}
+
+h1, .heading1 {
+  font: $heading1-m;
+}
+
+h2, .heading2 {
+  font: $heading2-m;
+}
+
+h3, .heading3 {
+  font: $heading3-m;
+}
+
+h4, .heading4 {
+  font: $heading4-m;
+}
+
+h5, .heading5 {
+  font: $heading5-m;
+}
+
+h6, .heading6 {
+  font: $heading6-m;
+}
+
+.heading7 {
+  font: $heading7-m;
+}
+
+.heading8 {
+  font: $heading8-m;
+}
+
+.heading9 {
+  font: $heading9-m;
+}
+
+.body-xxxl {
+  font: $body-xxxl-m;
+  color: $greyText;
+}
+
+.body-xxl {
+  font: $body-xxl-m;
+  color: $greyText;
+}
+
+.body-xl {
+  font: $body-xl-m;
+  color: $greyText;
+}
+
+.body-lg {
+  font: $body-lg-m;
+  color: $greyText;
+}
+
+.body-md {
+  font: $body-md-m;
+  color: $greyText;
+}
+
+.body-sm {
+  font: $body-sm-m;
+  color: $greyText;
+}
+
+.body-xs {
+  font: $body-xs-m;
+  color: $greyText;
+}
+
+p {
+  color: $greyText;
+}
+
+@media screen and (min-width: $screen-lg) {
+  .display-m {
+    font: $display-m-d;
+  }
+  .display-s {
+    font: $display-s-d;
+  }
+  .display-xs {
+    font: $display-xs-d;
+  }
+
+  h1, .heading1 {
+    font: $heading1-d;
+  }
+
+  h2, .heading2 {
+    font: $heading2-d;
+  }
+
+  h3, .heading3 {
+    font: $heading3-d;
+  }
+
+  h4, .heading4 {
+    font: $heading4-d;
+  }
+
+  h5, .heading5 {
+    font: $heading5-d;
+  }
+
+  h6, .heading6 {
+    font: $heading6-d;
+  }
+
+  .heading7 {
+    font: $heading7-d;
+  }
+
+  .heading8 {
+    font: $heading8-d;
+  }
+
+  .heading9 {
+    font: $heading9-d;
+  }
+
+  .body-xxxl {
+    font: $body-xxxl-d;
+  }
+  .body-xxl {
+    font: $body-xxl-d;
+  }
+  .body-xl {
+    font: $body-xl-d;
+  }
+  .body-lg {
+    font: $body-lg-d;
+  }
+  .body-md {
+    font: $body-md-d;
+  }
+  .body-sm {
+    font: $body-sm-d;
+  }
+  .body-xs {
+    font: $body-xs-d;
+  }
+}
+
+.weight-medium {
+  font-weight: 500 !important;
+}
+
+.weight-bold {
+  font-weight: 700 !important;
+}
+
+.weight-normal {
+  font-weight: 400 !important;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.text-primary {
+  color: $primary;
+}
+
+.text-accent {
+  color: $accent;
+}
+
+.text-grey {
+  color: $greyText;
+}
+
+.is-dark {
+  .text-primary {
+    color: #FFF;
+  }
+}
+
+.subtitle {
+
+}

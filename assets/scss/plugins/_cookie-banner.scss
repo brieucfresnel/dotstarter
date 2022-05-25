@@ -1,0 +1,69 @@
+#moove_gdpr_cookie_info_bar {
+  &.moove-gdpr-dark-scheme {
+    background-color: $secondary !important;
+    border-top: none !important;
+  }
+
+  .moove-gdpr-info-bar-container {
+    padding: 8px 20px !important;
+
+    .moove-gdpr-info-bar-content {
+      p {
+        font: $body-sm-m !important;
+        font-weight: 400 !important;
+      }
+
+      .moove-gdpr-cookie-notice {
+        margin-bottom: 0!important;
+        .change-settings-button {
+          &:hover {
+            color: $primary !important;
+          }
+        }
+      }
+
+      .moove-gdpr-button-holder {
+        justify-content: end;
+        margin-bottom: 15px;
+      }
+
+      .mgbutton {
+        padding: 8px 15px !important;
+        user-select: none !important;
+        cursor: pointer !important;
+        line-height: 1.688rem !important;
+        display: inline-flex !important;
+        border: 1px solid rgba(0, 0, 0, 0.03) !important;
+        transition: all .3s !important;
+        background-color: $primary !important;
+        border-radius: 0 !important;
+        text-transform: uppercase !important;
+
+        font-family: Barlow Condensed, serif;
+        font-style: normal;
+        font-weight: 800;
+        font-size: 17px;
+        letter-spacing: 0.02em;
+
+        &:hover {
+          background-color: $darkgrey !important;
+          color: white !important;
+        }
+
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 22px;
+          height: 20px;
+          margin-right: 10px;
+          background-image: url(./assets/vectors/arrow-btn.svg);
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-size: contain;
+          position: relative;
+          top: 3px;
+        }
+      }
+    }
+  }
+}

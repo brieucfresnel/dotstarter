@@ -42,7 +42,7 @@ export const scripts = () => {
         .pipe(dest('dist/js'));
 }
 
-export const styles = () => {
+export const generalStyles = () => {
     return src(['assets/scss/frontend.scss', 'assets/scss/admin.scss'])
         .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
@@ -53,8 +53,20 @@ export const styles = () => {
         .pipe(server.stream());
 }
 
+export const layoutStyles = () => {
+    return src(['layouts/**/*.scss'])
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
+        .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie8'})))
+        .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
+        .pipe(dest(file => file.base))
+        .pipe(server.stream());
+}
+
+
 export const watchForChanges = () => {
-    watch('assets/scss/**/*.scss', series(styles, reload));
+    watch('assets/scss/*.scss', series(generalStyles, reload));
+    watch('layouts/**/*.scss', series(layoutStyles, reload));
     watch('assets/js/**/*.js', series(scripts, reload));
 }
 
@@ -63,7 +75,7 @@ export const clean = () => del(['dist']);
 const server = browserSync.create();
 export const serve = done => {
     server.init({
-        proxy: "https://wp-rest-api.test" // TODO: gulp config : dynamic proxy URL
+        proxy: "https://clospadulis.test" // TODO gulp config : dynamic proxy URL
     });
     done();
 };
@@ -73,6 +85,6 @@ export const reload = done => {
     done();
 };
 
-export const dev = series(clean, parallel(styles, scripts), serve, watchForChanges);
-export const build = series(clean, styles, scripts)
+export const dev = series(clean, parallel(generalStyles, layoutStyles, scripts), serve, watchForChanges);
+export const build = series(clean, generalStyles, layoutStyles, scripts)
 export default dev;

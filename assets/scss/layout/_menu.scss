@@ -1,0 +1,9 @@
+.main-menu {
+  &.fix-admin-bar {
+    top: 32px;
+  }
+
+  @media screen and (min-width: $hamburger-breakpoint) {
+
+  }
+}
