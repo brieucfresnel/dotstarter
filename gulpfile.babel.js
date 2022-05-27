@@ -65,8 +65,9 @@ export const layoutStyles = () => {
 
 
 export const watchForChanges = () => {
-    watch('assets/scss/*.scss', series(generalStyles, reload));
-    watch('layouts/**/*.scss', series(layoutStyles, reload));
+    watch('templates/*.php', series(generalStyles, reload));
+    watch('assets/scss/**/*.scss', series(generalStyles, reload));
+    watch('layouts/**/*', series(layoutStyles, reload));
     watch('assets/js/**/*.js', series(scripts, reload));
 }
 
