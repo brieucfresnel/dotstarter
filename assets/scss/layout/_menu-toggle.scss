@@ -1,0 +1,55 @@
+.menu-toggle {
+  position: relative;
+  width: 25px;
+  height: 20px;
+  margin: 15px;
+  cursor: pointer;
+
+  span {
+    opacity: 1;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    border-radius: 10px;
+    color: black;
+    background-color: $primary;
+    position: absolute;
+    transform: rotate(0deg);
+    transition: .4s ease-in-out;
+  }
+
+  span {
+    &:first-child {
+      top: .5px;
+    }
+
+    &:nth-child(2) {
+      top: 9px;
+    }
+
+    &:nth-child(3) {
+      top: 18px;
+    }
+  }
+
+  &.active span {
+
+    &:nth-child(1) {
+      transform: translateY(9px) rotate(135deg);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    &:nth-child(3) {
+      transform: translateY(-9px) rotate(-135deg);
+    }
+  }
+
+  @media screen and (min-width: $hamburger-breakpoint) {
+    display: none;
+  }
+}

@@ -1,9 +1,25 @@
 .main-menu {
+  background: #eee;
+  padding: 20px 0;
+
   &.fix-admin-bar {
     top: 32px;
   }
 
-  @media screen and (min-width: $hamburger-breakpoint) {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1 1 0;
+  }
 
+  &__logo, &__navbar {
+    display: none;
+  }
+
+  @media screen and (min-width: $hamburger-breakpoint) {
+    &__logo, &__navbar {
+      display: block;
+    }
   }
 }
