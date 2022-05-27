@@ -13,6 +13,8 @@
     <link rel="shortcut icon" href="<?= DOT_THEME_PATH ?>/assets/img/favicon/favicon.ico">
     <meta name="msapplication-TileColor" content="#000000">
     <meta name="msapplication-config" content="<?= DOT_THEME_PATH ?>/assets/img/favicon/browserconfig.xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <?php wp_head(); ?>
 </head>
