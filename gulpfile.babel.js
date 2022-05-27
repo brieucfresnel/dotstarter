@@ -73,9 +73,10 @@ export const watchForChanges = () => {
 export const clean = () => del(['dist']);
 
 const server = browserSync.create();
+
 export const serve = done => {
     server.init({
-        proxy: "https://clospadulis.test" // TODO gulp config : dynamic proxy URL
+        proxy: "clospadulis.test" // TODO gulp config : dynamic proxy URL
     });
     done();
 };
