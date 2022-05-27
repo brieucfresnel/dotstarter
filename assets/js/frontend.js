@@ -1,5 +1,8 @@
-jQuery($ => {
+import slick from 'slick-carousel';
+
+jQuery(($) => {
     $(document).ready(() => {
-        console.log('ok');
+        // Slick Sliders
+        $('.slick').slick();
     })
 })
