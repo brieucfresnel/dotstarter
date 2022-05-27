@@ -53,6 +53,7 @@ if (!class_exists('DotStarter')) {
         public function enqueue_styles() {
             wp_enqueue_style('frontend', DOT_THEME_PATH . '/dist/css/frontend.css');
             wp_enqueue_style('slick', DOT_THEME_PATH . '/node_modules/slick-carousel/slick/slick.css');
+            wp_enqueue_style('gfonts', 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
             if (is_admin()) {
                 wp_enqueue_style('admin', DOT_THEME_PATH . '/dist/css/admin.css');
