@@ -11,6 +11,8 @@ if (!class_exists('DotStarter')) {
             }
 
             require_once(DOT_THEME_INCLUDES_PATH . 'helpers.php');
+            require_once(DOT_THEME_INCLUDES_PATH . 'post-types.php');
+            require_once(DOT_THEME_INCLUDES_PATH . 'taxonomies.php');
 
             add_action('after_setup_theme', array($this, 'theme_setup'));
             add_action('wp_enqueue_scripts', array($this, 'enqueue_styles'));
