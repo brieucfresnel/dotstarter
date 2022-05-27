@@ -10,5 +10,5 @@ pipelines:
       - step:
           name: 'Build'
           script:
-            - npm install
+            - npm ci
             - npm run build
