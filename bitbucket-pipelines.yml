@@ -14,3 +14,6 @@ pipelines:
           script:
             - npm install
             - npm run build
+        - step:
+            - script:
+                - ls
