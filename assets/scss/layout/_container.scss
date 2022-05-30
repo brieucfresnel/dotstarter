@@ -2,31 +2,6 @@
   width: 100%;
   margin: 0 auto;
   max-width: 95%;
-
-  @media screen and (min-width: $screen-sm) {
-    max-width: $container-sm;
-    width: 95%;
-  }
-
-  @media screen and (min-width: $screen-md) {
-    max-width: $container-md;
-    width: 95%;
-  }
-
-  @media screen and (min-width: $container-lg) {
-    max-width: $container-lg;
-    width: 95%;
-  }
-
-  @media screen and (min-width: $screen-xl) {
-    max-width: $container-xl;
-    width: 95%;
-  }
-
-  @media screen and (min-width: $screen-xxl) {
-    max-width: $container-xl;
-    width: 95%;
-  }
 }
 
 .fluid-container {
