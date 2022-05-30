@@ -17,7 +17,7 @@ jQuery(($) => {
             nextArrow: nextArrowSelector,
         });
 
-        $(sliderSelector).on('afterChange', function (event, slick) {
+        $(sliderSelector).on('beforeChange', function (event, slick) {
             let indexElem = $(layoutId).find('.current-index');
 
             const slidesCount = slick.$slides.length;
