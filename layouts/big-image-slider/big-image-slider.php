@@ -10,11 +10,11 @@
 
 // Get number of slides
 $slides_count = is_array(get_sub_field(('slide'))) ? count(get_sub_field('slide')) : 0;
+$is_header_class = get_sub_field('is_header') ? 'is-header' : '';
 ?>
 
 <?php if (have_rows('slide')): ?>
-    <div class="f-big-image-slider__slider slick"
-         data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "variableWidth": true, "centerMode": true, "centerPadding": "0", "prevArrow": ".f-big-image-slider__prev", "nextArrow": ".f-big-image-slider__next"}'>
+    <div class="f-big-image-slider__slider <?php echo $is_header_class ?>">
         <?php while (have_rows('slide')): the_row();
             $image = get_sub_field('bg_image');
             $subtitle = get_sub_field('subtitle');
@@ -24,7 +24,7 @@ $slides_count = is_array(get_sub_field(('slide'))) ? count(get_sub_field('slide'
             $button = get_sub_field('button');
             ?>
 
-            <div class="slide carousel-cell">
+            <div class="slide">
                 <img class="slide__img" src="<?php echo acf_maybe_get($image, 'url') ?>"
                      alt="<?php echo acf_maybe_get($image, 'alt') ?>"/>
                 <div class="slide__content">
@@ -68,4 +68,7 @@ $slides_count = is_array(get_sub_field(('slide'))) ? count(get_sub_field('slide'
         </div>
     <?php endif; ?>
 <?php endif; ?>
+
+<div data-behold-id="hotaY0jfk1x4cuBpXcwS"></div>
+<script src="https://w.behold.so/widget.js" type="module"></script>
 

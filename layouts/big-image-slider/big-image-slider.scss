@@ -2,10 +2,13 @@
 
 .f-big-image-slider {
   position: relative;
+  max-width: 100%;
+  overflow-x: hidden;
 
-  .fluid-container {
+  .fluid-container, .container {
     max-width: unset;
-    width: 100vw;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
   }
 
   .slick-slider, .slide {
