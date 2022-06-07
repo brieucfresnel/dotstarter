@@ -54,7 +54,7 @@ export const generalStyles = () => {
 }
 
 export const layoutStyles = () => {
-    return src(['layouts/**/*.scss'])
+    return src(['dotstarter/**/**/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
         .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie8'})))
@@ -65,10 +65,10 @@ export const layoutStyles = () => {
 
 
 export const watchForChanges = () => {
-    watch('templates/*.php', series(generalStyles, reload));
+    watch('dotstarter/**/**/*.php', series(generalStyles, reload));
     watch('assets/scss/**/*.scss', series(generalStyles, reload));
-    watch(['layouts/**/*.scss', 'layouts/**/*.php', 'layouts/**/*.js'], series(layoutStyles, reload));
     watch('assets/js/**/*.js', series(scripts, reload));
+    watch(['dotstarter/**/**/*.scss', 'dotstarter/**/**/*.php', 'dotstarter/**/**/*.js'], series(layoutStyles, reload));
 }
 
 export const clean = () => del(['dist']);

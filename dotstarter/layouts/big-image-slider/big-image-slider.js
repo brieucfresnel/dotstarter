@@ -1,7 +1,7 @@
 jQuery(($) => {
     const layoutClass = '.f-big-image-slider';
 
-    $(layoutClass).each(function () {
+    $(layoutClass + ':not(.is-preview)').each(function () {
         const layoutId = '#' + $(this).attr('id');
         const sliderSelector = `${layoutId} ${layoutClass}__slider`;
         const prevArrowSelector = `${layoutId} ${layoutClass}__prev`;

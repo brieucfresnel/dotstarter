@@ -11,6 +11,7 @@
 // Get number of slides
 $slides_count = is_array(get_sub_field(('slide'))) ? count(get_sub_field('slide')) : 0;
 $is_header_class = get_sub_field('is_header') ? 'is-header' : '';
+$button = get_sub_field('button');
 ?>
 
 <?php if (have_rows('slide')): ?>
@@ -44,6 +45,9 @@ $is_header_class = get_sub_field('is_header') ? 'is-header' : '';
                     <?php if ($description): ?>
                         <div class="slide__description body-md"><?php echo $description; ?></div>
                     <?php endif; ?>
+                    <?php if($button): ?>
+                        <?php get_template_part('dotstarter/layout_parts/button', null, $button) ?>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endwhile; ?>
@@ -69,6 +73,4 @@ $is_header_class = get_sub_field('is_header') ? 'is-header' : '';
     <?php endif; ?>
 <?php endif; ?>
 
-<div data-behold-id="hotaY0jfk1x4cuBpXcwS"></div>
-<script src="https://w.behold.so/widget.js" type="module"></script>
-
+<?php //the_component('button', 'button'); ?>

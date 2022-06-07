@@ -1,4 +1,4 @@
-@import '../../assets/scss/settings/variables';
+@import '../../../assets/scss/settings/variables';
 
 .f-big-image-slider {
   position: relative;
@@ -7,6 +7,7 @@
 
   .fluid-container, .container {
     max-width: unset;
+    width: unset;
     padding-left: 0;
     padding-right: 0;
   }
