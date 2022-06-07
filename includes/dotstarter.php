@@ -1,13 +1,17 @@
 <?php
 
-if (!class_exists('DotStarter')) {
-    class DotStarter {
+if (!class_exists('DOT_Starter')) {
+    class DOT_Starter {
         /**
          * @throws Exception
          */
         public function __construct() {
-            if (!class_exists('DotCore')) {
+            if (!class_exists('\DOT\Core\DOT_Core')) {
                 throw new Exception('Le plugin DOT Core doit être installé et activé pour que ce thème fonctionne correctement.');
+            }
+
+            if (!defined('ACF_PRO')) {
+                throw new Exception('Le plugin ACF Pro doit être installé et activé pour que ce thème fonctionne correctement.');
             }
 
             require_once(DOT_THEME_INCLUDES_PATH . 'helpers.php');
