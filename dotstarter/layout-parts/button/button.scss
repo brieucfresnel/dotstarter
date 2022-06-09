@@ -1,0 +1,21 @@
+@import '../../../assets/scss/settings/variables';
+
+.button {
+  padding: 8px 12px;
+  border-radius: 3px;
+
+  &--primary {
+    background-color: $primary;
+    color: $white;
+  }
+
+  &--secondary {
+    background-color: $secondary;
+    color: $white;
+  }
+
+  &--accent {
+    background-color: $accent;
+    color: $white;
+  }
+}

@@ -1,9 +1,13 @@
 <?php
-if (!isset($args)){
+/**
+ * @field label;
+ * @field color
+ */
+
+if (empty($fields))
     return;
-}
 ?>
 
-<div class="button button--white">
-    <?php echo $args['label'] ?>
-</div>
+<button class="button button--primary">
+    <?php echo $fields['label'] ?>
+</button>
