@@ -6,26 +6,111 @@ if (!class_exists('DOT_Starter')) {
          * @throws Exception
          */
         public function __construct() {
+            require_once(get_stylesheet_directory() . '/vendor/tgmpa/tgm-plugin-activation/class-tgm-plugin-activation.php');
+            add_action('tgmpa_register', array($this, 'register_required_plugins'));
+
             if (!class_exists('\DOT\Core\DOT_Core')) {
-                throw new Exception('Le plugin DOT Core doit être installé et activé pour que ce thème fonctionne correctement.');
+//                throw new Exception('Le plugin DOT Core doit être installé et activé pour que ce thème fonctionne correctement.');
+                return;
             }
 
             if (!defined('ACF_PRO')) {
-                throw new Exception('Le plugin ACF Pro doit être installé et activé pour que ce thème fonctionne correctement.');
+//                throw new Exception('Le plugin ACF Pro doit être installé et activé pour que ce thème fonctionne correctement.');
+                return;
             }
 
             require_once(DOT_THEME_INCLUDES_PATH . 'helpers.php');
             require_once(DOT_THEME_INCLUDES_PATH . 'post-types.php');
             require_once(DOT_THEME_INCLUDES_PATH . 'taxonomies.php');
 
-            add_action('after_setup_theme',     array($this, 'theme_setup'));
-            add_action('after_setup_theme',     array($this, 'register_nav_menus'));
-            add_action('wp_enqueue_scripts',    array($this, 'enqueue_styles'));
-            add_action('wp_enqueue_scripts',    array($this, 'enqueue_scripts'));
+            add_action('after_setup_theme', array($this, 'theme_setup'));
+            add_action('after_setup_theme', array($this, 'register_nav_menus'));
+            add_action('wp_enqueue_scripts', array($this, 'enqueue_styles'));
+            add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
             add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
 
-            add_action('upload_mimes',          array($this, 'add_mime_types_to_upload_whitelist'));
-            add_filter('nav_menu_css_class',    array($this, 'add_special_nav_class'), 10, 2);
+            add_action('upload_mimes', array($this, 'add_mime_types_to_upload_whitelist'));
+            add_filter('nav_menu_css_class', array($this, 'add_special_nav_class'), 10, 2);
+        }
+
+        /**
+         * @return void
+         * @throws Exception
+         */
+        function register_required_plugins() {
+            $plugins = array(
+
+                // Plug-ins that need licence key
+                array(
+                    'name' => 'Advanced Custom Fields Pro',
+                    'slug' => 'advanced-custom-fields-pro',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'WP Migrate DB Pro',
+                    'slug' => 'wp-migrate-db-pro',
+                    'required' => true,
+                ),
+
+                // Plug-ins from WordPress repository
+                array(
+                    'name' => 'Classic Editor',
+                    'slug' => 'classic-editor',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'Advanced Custom Fields : Extended',
+                    'slug' => 'acf-extended',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'Yoast SEO',
+                    'slug' => 'wordpress-seo',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'Better Search Replace',
+                    'slug' => 'better-search-replace',
+                    'required' => false,
+                ),
+                array(
+                    'name' => 'What The File',
+                    'slug' => 'what-the-file',
+                    'required' => false,
+                ),
+
+                // DotCore
+                array(
+                    'name' => 'DOT Core',
+                    'slug' => 'dotcore',
+                    'required' => true,
+                ),
+            );
+
+            $config = array(
+                'id' => 'dotstarter',
+                // Unique ID for hashing notices for multiple instances of TGMPA.
+                'default_path' => '',
+                // Default absolute path to bundled plugins.
+                'menu' => 'tgmpa-install-plugins',
+                // Menu slug.
+                'parent_slug' => 'themes.php',
+                // Parent menu slug.
+                'capability' => 'edit_theme_options',
+                // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+                'has_notices' => true,
+                // Show admin notices or not.
+                'dismissable' => true,
+                // If false, a user cannot dismiss the nag message.
+                'dismiss_msg' => '',
+                // If 'dismissable' is false, this message will be output at top of nag.
+                'is_automatic' => true,
+                // Automatically activate plugins after installation or not.
+                'message' => '',
+                // Message to output right before the plugins table.
+            );
+
+            tgmpa($plugins, $config);
         }
 
         /**
@@ -55,12 +140,12 @@ if (!class_exists('DOT_Starter')) {
          * @return void
          */
         public function enqueue_styles() {
-            wp_enqueue_style('frontend', DOT_THEME_PATH . '/dist/css/frontend.css');
-            wp_enqueue_style('slick', DOT_THEME_PATH . '/node_modules/slick-carousel/slick/slick.css');
+            wp_enqueue_style('frontend', DOT_THEME_URI . '/dist/css/frontend.css');
+            wp_enqueue_style('slick', DOT_THEME_URI . '/node_modules/slick-carousel/slick/slick.css');
             wp_enqueue_style('gfonts', 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
             if (is_admin()) {
-                wp_enqueue_style('admin', DOT_THEME_PATH . '/dist/css/admin.css');
+                wp_enqueue_style('admin', DOT_THEME_URI . '/dist/css/admin.css');
             }
         }
 
@@ -73,7 +158,7 @@ if (!class_exists('DOT_Starter')) {
             }
 
             wp_enqueue_script('jquery');
-            wp_enqueue_script('dotstarter-frontend', DOT_THEME_PATH . '/dist/js/frontend.js', array('jquery'), 1.0, true);
+            wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/frontend.js', array('jquery'), 1.0, true);
 
             // Inject PHP variables to main.js
             wp_localize_script('dotstarter-frontend', 'ajaxConfig', array(
@@ -89,8 +174,8 @@ if (!class_exists('DOT_Starter')) {
             if (!is_edit_page_type_page())
                 return;
 
-            wp_enqueue_style('dotstarter-admin-css', DOT_THEME_PATH . '/dist/css/admin.css');
-            wp_enqueue_script('dotstarter-admin-js', DOT_THEME_PATH . '/dist/js/admin.js', array('jquery'), 1.0, true);
+            wp_enqueue_style('dotstarter-admin-css', DOT_THEME_URI . '/dist/css/admin.css');
+            wp_enqueue_script('dotstarter-admin-js', DOT_THEME_URI . '/dist/js/admin.js', array('jquery'), 1.0, true);
 
         }
 

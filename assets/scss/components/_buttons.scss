@@ -49,7 +49,7 @@
   }
 }
 
-.o-btn {
+.button {
   &--white {
     @include button($white, $black, $black, $white);
   }

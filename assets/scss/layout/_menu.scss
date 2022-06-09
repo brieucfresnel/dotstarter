@@ -1,10 +1,12 @@
 .main-menu {
   background: #eee;
-  padding: 20px 0;
-
-  &.fix-admin-bar {
-    top: 32px;
-  }
+  padding: 8px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
 
   .container {
     display: flex;
@@ -17,9 +19,21 @@
     display: none;
   }
 
+  &__logo {
+    max-width: 120px;
+  }
+
   @media screen and (min-width: $hamburger-breakpoint) {
     &__logo, &__navbar {
       display: block;
     }
   }
+}
+
+.main-menu.fix-admin-bar {
+  top: 32px;
+}
+
+.mobile-menu {
+
 }

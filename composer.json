@@ -1,0 +1,13 @@
+{
+    "name": "studio-dot/dotstarter",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Studio DOT",
+            "email": "dev@studio-dot.fr"
+        }
+    ],
+    "require": {
+        "tgmpa/tgm-plugin-activation": "^2.6"
+    }
+}

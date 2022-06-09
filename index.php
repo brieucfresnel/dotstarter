@@ -2,6 +2,8 @@
 
 get_header();
 
-the_dot_layouts();
+if(function_exists('the_dot_layouts')) {
+    the_dot_layouts();
+}
 
 get_footer();

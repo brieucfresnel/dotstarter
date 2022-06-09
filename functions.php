@@ -1,6 +1,6 @@
 <?php
 
-require_once(DOT_THEME_INCLUDES_PATH . 'dotstarter.php');
+require_once('includes/dotstarter.php');
 
 new DOT_Starter();
 
