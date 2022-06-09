@@ -120,86 +120,85 @@ if (!class_exists('DOT_Starter')) {
             }
             return $classes;
         }
+
+        /**
+         * @return void
+         * @throws Exception
+         */
+        public function register_required_plugins() {
+            $plugins = array(
+
+                // Plug-ins that need licence key
+                array(
+                    'name' => 'Advanced Custom Fields Pro',
+                    'slug' => 'advanced-custom-fields-pro',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'WP Migrate DB Pro',
+                    'slug' => 'wp-migrate-db-pro',
+                    'required' => true,
+                ),
+
+                // Plug-ins from WordPress repository
+                array(
+                    'name' => 'Classic Editor',
+                    'slug' => 'classic-editor',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'Advanced Custom Fields : Extended',
+                    'slug' => 'acf-extended',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'Yoast SEO',
+                    'slug' => 'wordpress-seo',
+                    'required' => true,
+                ),
+                array(
+                    'name' => 'Better Search Replace',
+                    'slug' => 'better-search-replace',
+                    'required' => false,
+                ),
+                array(
+                    'name' => 'What The File',
+                    'slug' => 'what-the-file',
+                    'required' => false,
+                ),
+
+                // DotCore
+                array(
+                    'name' => 'DOT Core',
+                    'slug' => 'dotcore',
+                    'required' => true,
+                ),
+            );
+
+            $config = array(
+                'id' => 'dotstarter',
+                // Unique ID for hashing notices for multiple instances of TGMPA.
+                'default_path' => '',
+                // Default absolute path to bundled plugins.
+                'menu' => 'tgmpa-install-plugins',
+                // Menu slug.
+                'parent_slug' => 'themes.php',
+                // Parent menu slug.
+                'capability' => 'edit_theme_options',
+                // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+                'has_notices' => true,
+                // Show admin notices or not.
+                'dismissable' => true,
+                // If false, a user cannot dismiss the nag message.
+                'dismiss_msg' => '',
+                // If 'dismissable' is false, this message will be output at top of nag.
+                'is_automatic' => true,
+                // Automatically activate plugins after installation or not.
+                'message' => '',
+                // Message to output right before the plugins table.
+            );
+
+            tgmpa($plugins, $config);
+        }
     }
-
-    /**
-     * @return void
-     * @throws Exception
-     */
-    function register_required_plugins() {
-        $plugins = array(
-
-            // Plug-ins that need licence key
-            array(
-                'name' => 'Advanced Custom Fields Pro',
-                'slug' => 'advanced-custom-fields-pro',
-                'required' => true,
-            ),
-            array(
-                'name' => 'WP Migrate DB Pro',
-                'slug' => 'wp-migrate-db-pro',
-                'required' => true,
-            ),
-
-            // Plug-ins from WordPress repository
-            array(
-                'name' => 'Classic Editor',
-                'slug' => 'classic-editor',
-                'required' => true,
-            ),
-            array(
-                'name' => 'Advanced Custom Fields : Extended',
-                'slug' => 'acf-extended',
-                'required' => true,
-            ),
-            array(
-                'name' => 'Yoast SEO',
-                'slug' => 'wordpress-seo',
-                'required' => true,
-            ),
-            array(
-                'name' => 'Better Search Replace',
-                'slug' => 'better-search-replace',
-                'required' => false,
-            ),
-            array(
-                'name' => 'What The File',
-                'slug' => 'what-the-file',
-                'required' => false,
-            ),
-
-            // DotCore
-            array(
-                'name' => 'DOT Core',
-                'slug' => 'dotcore',
-                'required' => true,
-            ),
-        );
-
-        $config = array(
-            'id' => 'dotstarter',
-            // Unique ID for hashing notices for multiple instances of TGMPA.
-            'default_path' => '',
-            // Default absolute path to bundled plugins.
-            'menu' => 'tgmpa-install-plugins',
-            // Menu slug.
-            'parent_slug' => 'themes.php',
-            // Parent menu slug.
-            'capability' => 'edit_theme_options',
-            // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
-            'has_notices' => true,
-            // Show admin notices or not.
-            'dismissable' => true,
-            // If false, a user cannot dismiss the nag message.
-            'dismiss_msg' => '',
-            // If 'dismissable' is false, this message will be output at top of nag.
-            'is_automatic' => true,
-            // Automatically activate plugins after installation or not.
-            'message' => '',
-            // Message to output right before the plugins table.
-        );
-
-        tgmpa($plugins, $config);
-    }
-
 }
