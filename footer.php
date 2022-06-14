@@ -1,13 +1,1 @@
-</main>
-
-</div>
-
-<?php wp_footer(); ?>
-
-<?php if(WP_DEBUG): ?>
-<script id="__bs_script__">//<![CDATA[
-    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.27.9'><\/script>".replace("HOST", location.hostname));
-<?php endif; ?>
-</body>
-
-</html>
+<?php get_template_part('templates/layout/footer') ?>
