@@ -6,10 +6,10 @@
             <span></span>
         </div>
         <a href="<?php echo home_url() ?>" class="main-menu__logo">
-            <img src="<?php echo get_field('logo', 'option') ?>" alt="Logo"/>
+            <img src="<?php echo get_field('header_logo', 'option') ?>" alt="Logo"/>
         </a>
         <div class="main-menu__navbar">
-
+            <?php wp_nav_menu('header-menu') ?>
         </div>
         <div></div>
     </div>
