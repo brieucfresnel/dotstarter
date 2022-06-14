@@ -1,30 +1,51 @@
-jQuery(($) => {
-    const layoutClass = '.f-big-image-slider';
+const BigImageSlider = {
+    layoutClass: '.f-big-image-slider',
 
-    $(layoutClass + ':not(.is-preview)').each(function () {
-        const layoutId = '#' + $(this).attr('id');
-        const sliderSelector = `${layoutId} ${layoutClass}__slider`;
-        const prevArrowSelector = `${layoutId} ${layoutClass}__prev`;
-        const nextArrowSelector = `${layoutId} ${layoutClass}__next`;
+    init() {
+        jQuery(($) => {
+            $(this.layoutClass + ':not(.is-preview)').each(function () {
+                const layoutClass = BigImageSlider.layoutClass;
+                const layoutId = '#' + $(this).attr('id');
 
-        $(sliderSelector).slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            variableWidth: true,
-            centerMode: true,
-            centerPadding: "0",
-            prevArrow: prevArrowSelector,
-            nextArrow: nextArrowSelector,
-        });
+                const sliderSelector = `${layoutId} ${layoutClass}__slider`;
+                const prevArrowSelector = `${layoutId} ${layoutClass}__prev`;
+                const nextArrowSelector = `${layoutId} ${layoutClass}__next`;
 
-        $(sliderSelector).on('beforeChange', function (event, slick) {
-            let indexElem = $(layoutId).find('.current-index');
+                $(sliderSelector).slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    variableWidth: true,
+                    centerMode: true,
+                    centerPadding: "0",
+                    prevArrow: prevArrowSelector,
+                    nextArrow: nextArrowSelector,
+                });
 
-            const slidesCount = slick.$slides.length;
-            const currentIndex = parseInt(indexElem.text());
-            const nextIndex = (currentIndex + 1) > slidesCount ? 1 : currentIndex + 1;
+                $(sliderSelector).on('beforeChange', function (event, slick) {
+                    let indexElem = $(layoutId).find('.current-index');
 
-            indexElem.text(nextIndex);
-        });
-    })
-});
+                    const slidesCount = slick.$slides.length;
+                    const currentIndex = parseInt(indexElem.text());
+                    const nextIndex = (currentIndex + 1) > slidesCount ? 1 : currentIndex + 1;
+
+                    indexElem.text(nextIndex);
+                });
+            })
+        })
+    },
+
+    destroy() {
+        jQuery(($) => {
+            $(this.layoutClass + ':not(.is-preview)').each(function () {
+                const layoutId = '#' + $(this).attr('id');
+                const sliderSelector = `${layoutId} ${BigImageSlider.layoutClass}__slider`;
+
+                $(sliderSelector).slick('unslick');
+            });
+        })
+    }
+}
+
+
+export default BigImageSlider;
+

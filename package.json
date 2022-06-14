@@ -40,6 +40,8 @@
     "yargs": "^17.5.1"
   },
   "dependencies": {
+    "@barba/core": "^2.9.7",
+    "gsap": "^3.10.4",
     "slick-carousel": "^1.8.1"
   }
 }

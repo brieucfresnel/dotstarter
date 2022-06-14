@@ -20,11 +20,13 @@ if (!class_exists('DOT_Starter')) {
             add_action('after_setup_theme', array($this, 'theme_setup'));
             add_action('after_setup_theme', array($this, 'register_nav_menus'));
             add_action('wp_enqueue_scripts', array($this, 'enqueue_styles'));
-            add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+            add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'), 1);
             add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
 
             add_action('upload_mimes', array($this, 'add_mime_types_to_upload_whitelist'));
             add_filter('nav_menu_css_class', array($this, 'add_special_nav_class'), 10, 2);
+
+            add_filter('script_loader_tag', array($this, 'set_scripts_type_module_attribute'), 99, 3);
         }
 
         /**
@@ -67,21 +69,27 @@ if (!class_exists('DOT_Starter')) {
          * @return void
          */
         public function enqueue_scripts() {
+            wp_enqueue_script('jquery');
+            wp_enqueue_script('slick', DOT_THEME_URI . '/node_modules/slick-carousel/slick/slick.min.js', array(), null, true);
+            wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/frontend.js', array('jquery'), 1.0, true);
+
             if (get_field('gmaps_api_key', 'option')) {
                 wp_enqueue_script('google-map', 'https://maps.googleapis.com/maps/api/js?key=' . get_field('gmaps_api_key', 'option'), array(), '3', true);
             }
 
-            wp_enqueue_script('jquery');
-            wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/frontend.js', array('jquery'), 1.0, true);
-
             // Inject PHP variables to main.js
-            wp_localize_script('dotstarter-frontend', 'ajaxConfig', array(
+            $args = array(
                 'ajaxUrl' => admin_url('admin-ajax.php'),
                 'homeUrl' => home_url(),
                 'isLoggedIn' => is_user_logged_in(),
                 'isSinglePost' => is_single(),
-                'nonce' => wp_create_nonce('dot_nonce')
-            ));
+                'nonce' => wp_create_nonce('dot_nonce'),
+            );
+
+            if(get_field('barba', 'option'))
+                $args['barbaActive'] = true;
+
+            wp_localize_script('dotstarter-frontend', 'ajaxConfig', $args);
         }
 
         public function enqueue_admin_scripts() {
@@ -90,7 +98,6 @@ if (!class_exists('DOT_Starter')) {
 
             wp_enqueue_style('dotstarter-admin-css', DOT_THEME_URI . '/dist/css/admin.css');
             wp_enqueue_script('dotstarter-admin-js', DOT_THEME_URI . '/dist/js/admin.js', array('jquery'), 1.0, true);
-
         }
 
         /**
@@ -119,6 +126,21 @@ if (!class_exists('DOT_Starter')) {
                 $classes[] = 'active';
             }
             return $classes;
+        }
+
+        public function set_scripts_type_module_attribute($tag, $handle, $src) {
+            // if not your script, do nothing and return original $tag
+
+            if (
+                !str_contains($handle, 'dotstarter-frontend') &&
+                !str_contains($handle, 'layout')
+            ) {
+                return $tag;
+            }
+            // change the script tag by adding type="module" and return it.
+            $tag = '<script type="module" src="' . esc_url($src) . '"></script>';
+
+            return $tag;
         }
 
         /**
