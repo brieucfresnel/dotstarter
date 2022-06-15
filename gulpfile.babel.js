@@ -12,8 +12,9 @@ import browserSync from 'browser-sync';
 
 const PRODUCTION = yargs.argv.prod;
 const sass = require('gulp-sass')(require('node-sass'));
+const cache = require('gulp-cache');
 
-export const scripts = () => {
+export const generalScripts = () => {
     return src(['assets/js/frontend.js', 'assets/js/admin.js'])
         .pipe(named())
         .pipe(webpack({
@@ -39,7 +40,8 @@ export const scripts = () => {
                 jquery: 'jQuery'
             }
         }))
-        .pipe(dest('dist/js'));
+        .pipe(dest('dist/js'))
+        .pipe(cache.clear());
 }
 
 export const generalStyles = () => {
@@ -47,17 +49,18 @@ export const generalStyles = () => {
         .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
         .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
-        .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie8'})))
+        .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie11'})))
         .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
         .pipe(dest('dist/css'))
-        .pipe(server.stream());
+        .pipe(server.stream())
+        .pipe(cache.clear());
 }
 
 export const layoutStyles = () => {
     return src(['dotstarter/**/**/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
-        .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie8'})))
+        .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie11'})))
         .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
         .pipe(dest(file => file.base))
         .pipe(server.stream());
@@ -65,10 +68,11 @@ export const layoutStyles = () => {
 
 
 export const watchForChanges = () => {
-    watch('dotstarter/**/**/*.php', series(generalStyles, reload));
+    watch(['dotstarter/**/**/*.php', 'dotstarter/**/**/*.js'], series(generalScripts, reload));
+    watch('dotstarter/**/**/*.scss', series(layoutStyles, reload));
+
     watch('assets/scss/**/*.scss', series(generalStyles, reload));
-    watch('assets/js/**/*.js', series(scripts, reload));
-    watch(['dotstarter/**/**/*.scss', 'dotstarter/**/**/*.php', 'dotstarter/**/**/*.js'], series(layoutStyles, reload));
+    watch('assets/js/**/*.js', series(generalScripts, reload));
 }
 
 export const clean = () => del(['dist']);
@@ -87,6 +91,6 @@ export const reload = done => {
     done();
 };
 
-export const dev = series(clean, parallel(generalStyles, layoutStyles, scripts), serve, watchForChanges);
-export const build = series(clean, generalStyles, layoutStyles, scripts)
+export const dev = series(clean, parallel(generalStyles, layoutStyles, generalScripts), serve, watchForChanges);
+export const build = series(clean, generalStyles, layoutStyles, generalScripts)
 export default dev;
