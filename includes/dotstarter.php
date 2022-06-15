@@ -42,6 +42,7 @@ if (!class_exists('DOT_Starter')) {
                 'flex-width' => true,
                 'header-text' => array('site-title', 'site-description'),
             ));
+            add_theme_support('woocommerce');
 
             add_image_size('2xlarge', 2560, 1440);
         }
@@ -84,6 +85,7 @@ if (!class_exists('DOT_Starter')) {
                 'isLoggedIn' => is_user_logged_in(),
                 'isSinglePost' => is_single(),
                 'nonce' => wp_create_nonce('dot_nonce'),
+                'debug' => WP_DEBUG
             );
 
             if(get_field('barba', 'option'))
