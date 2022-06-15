@@ -4,6 +4,7 @@
   height: 20px;
   margin: 15px;
   cursor: pointer;
+  z-index: 100;
 
   span {
     opacity: 1;
@@ -13,7 +14,7 @@
     height: 2px;
     border-radius: 10px;
     color: black;
-    background-color: $primary;
+    background-color: $white;
     position: absolute;
     transform: rotate(0deg);
     transition: .4s ease-in-out;
