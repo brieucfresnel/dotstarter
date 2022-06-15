@@ -129,6 +129,13 @@ if (!class_exists('DOT_Starter')) {
             }
             return $classes;
         }
+    }
+    /**
+     * @return void
+     * @throws Exception
+     */
+    function register_required_plugins() {
+        $plugins = array(
 
         public function set_scripts_type_module_attribute($tag, $handle, $src) {
             // if not your script, do nothing and return original $tag
@@ -225,4 +232,5 @@ if (!class_exists('DOT_Starter')) {
             tgmpa($plugins, $config);
         }
     }
+
 }
