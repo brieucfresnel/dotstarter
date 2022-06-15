@@ -3,9 +3,17 @@ import {
     pageTransitionExiting,
     pageTransitionOpening
 } from '../animations/loader';
-import BigImageSlider from "../../../dotstarter/layouts/big-image-slider/big-image-slider";
+// import BigImageSlider from "../../../dotstarter/layouts/big-image-slider/big-image-slider";
 
 window.barba = barba;
+
+/**
+ * Commands to run after loading a new page
+ * @barba-hook after
+ */
+const initComponents = () => {
+    // BigImageSlider.init();
+}
 
 /**
  * If the next page URL contains one of these strings, prevent page transition
@@ -75,7 +83,7 @@ export default async function (scripts) {
     });
 
     function once() {
-        BigImageSlider.init();
+        initComponents();
     }
 
     function beforeLeave(data) {
@@ -100,7 +108,7 @@ export default async function (scripts) {
         }, 1000);
 
         // BigImageSlider hooks
-        BigImageSlider.init();
+        initComponents();
 
         pageTransitionOpening(data);
     }
@@ -115,8 +123,6 @@ export default async function (scripts) {
     }
 
     function leave(data, done, urlPartsToPreventPageChange, urlPartsToBlock) {
-        setTimeout(() => {BigImageSlider.destroy() }, 600);
-
         let href = data.next.url.href
         let preventPageChange = false;
         let prevent = false;
