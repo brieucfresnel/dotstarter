@@ -1,7 +1,6 @@
 import barba from './lib/barba';
 
 // Components
-import slick from 'slick-carousel';
 import menu from './components/menu';
 
 // Plugins
