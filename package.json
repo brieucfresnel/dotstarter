@@ -1,7 +1,7 @@
 {
-  "name": "dot-core",
+  "name": "dot-starter",
   "version": "1.0.0",
-  "description": "Studio DOT's Wordpress ACF-based framework",
+  "description": "Studio DOT's Wordpress ACF-based Starter Theme",
   "main": "assets/js/index.js",
   "scripts": {
     "dev": "gulp",

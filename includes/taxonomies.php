@@ -8,7 +8,7 @@ if (!class_exists('DOT_Taxonomies')) {
 
         public function register_taxonomies() {
 //            $labels = array(
-//                'name' => _x('Categories', 'taxonomy general name'),
+//                'name' => _x('Product Categories', 'taxonomy general name'),
 //                'singular_name' => _x('Category', 'taxonomy singular name'),
 //                'search_items' => __('Search Categories'),
 //                'all_items' => __('All Categories'),

@@ -42,7 +42,6 @@ if (!class_exists('DOT_Starter')) {
 				'flex-width' => true,
 				'header-text' => array('site-title', 'site-description'),
 			));
-			add_theme_support('woocommerce');
 
 			add_image_size('2xlarge', 2560, 1440);
 		}
@@ -58,8 +57,6 @@ if (!class_exists('DOT_Starter')) {
 		 */
 		public function enqueue_styles() {
 			wp_enqueue_style('frontend', DOT_THEME_URI . '/dist/css/frontend.css');
-			wp_enqueue_style('slick', DOT_THEME_URI . '/node_modules/slick-carousel/slick/slick.css');
-			wp_enqueue_style('gfonts', 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
 			if (is_admin()) {
 				wp_enqueue_style('admin', DOT_THEME_URI . '/dist/css/admin.css');
@@ -70,15 +67,7 @@ if (!class_exists('DOT_Starter')) {
 		 * @return void
 		 */
 		public function enqueue_scripts() {
-			wp_enqueue_script('jquery');
-			wp_enqueue_script('slick', DOT_THEME_URI . '/node_modules/slick-carousel/slick/slick.min.js', array(), null, true);
-			wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/frontend.js', array('jquery'), 1.0, true);
-
-			if (get_field('gmaps_api_key', 'option')) {
-				wp_enqueue_script('google-map', 'https://maps.googleapis.com/maps/api/js?key=' . get_field('gmaps_api_key', 'option'), array(), '3', true);
-			}
-
-			// Inject PHP variables to main.js
+			// Inject PHP variables to frontend.js
 			$args = array(
 				'ajaxUrl' => admin_url('admin-ajax.php'),
 				'homeUrl' => home_url(),
@@ -88,8 +77,21 @@ if (!class_exists('DOT_Starter')) {
 				'debug' => WP_DEBUG
 			);
 
-			if(get_field('barba', 'option'))
+			wp_enqueue_script('jquery');
+			wp_enqueue_script('slick', DOT_THEME_URI . '/node_modules/slick-carousel/slick/slick.min.js', array(), null, true);
+			wp_enqueue_script('gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js', array(), null, true);
+			wp_enqueue_script('gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js', array(), null, true);
+
+			if(get_field('barba', 'option')) {
 				$args['barbaActive'] = true;
+				wp_enqueue_script('barbajs', 'https://unpkg.com/@barba/core', array(), null, true);
+			}
+
+			wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/frontend.js', array('jquery', 'barbajs'), 1.0, true);
+
+			if (get_field('gmaps_api_key', 'option')) {
+				wp_enqueue_script('google-map', 'https://maps.googleapis.com/maps/api/js?key=' . get_field('gmaps_api_key', 'option'), array(), '3', true);
+			}
 
 			wp_localize_script('dotstarter-frontend', 'ajaxConfig', $args);
 		}
