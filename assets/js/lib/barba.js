@@ -1,20 +1,9 @@
-import barba from '@barba/core';
 import {
     pageTransitionExiting,
     pageTransitionOpening
-} from '../animations/loader';
-// import BigImageSlider from "../../../dotstarter/layouts/big-image-slider/big-image-slider";
-
-window.barba = barba;
-
-/**
- * Commands to run after loading a new page
- * @barba-hook after
- */
-const initComponents = () => {
-    // BigImageSlider.init();
-}
-
+} from "../animations/loader";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 /**
  * If the next page URL contains one of these strings, prevent page transition
  *
@@ -22,14 +11,6 @@ const initComponents = () => {
  */
 const urlPartsToBlock = [
     'wp-admin',
-    'panier',
-    'cart',
-    'paiement',
-    'checkout',
-    'boutique',
-    'shop',
-    'produit',
-    'product'
 ];
 
 /**
@@ -43,53 +24,24 @@ const urlPartsToPreventPageChange = [
 ];
 
 export default async function (scripts) {
-
-    // Init
-    barba.init({
-        debug: false,
-        timeout: 6000,
-        sync: true,
-        logLevel: "off",
-        //prefetchIgnore: false,
-        prevent: ({el}) => el.classList && el.classList.contains('no-barba'),
-        transitions: [{
-            name: 'default-transition',
-            once() {
-                once();
-            },
-            beforeLeave(data) {
-                beforeLeave(data);
-            },
-            leave(data) {
-                // PERMET DE RENDRE LA TRANSITION ASYNCHRONE CHARGEMENT PENDANT QUE LA TRANSITION SE FAIT
-                const done = this.async();
-                leave(data, done, urlPartsToPreventPageChange, urlPartsToBlock);
-            },
-
-            afterLeave() {
-            },
-
-            beforeEnter({current, next}) {
-            },
-
-            enter(data) {
-                enter(data);
-            },
-
-            after(data) {
-                after(data, scripts);
-            }
-        }],
-    });
-
     function once() {
-        initComponents();
+        scripts.once();
     }
 
     function beforeLeave(data) {
+        window.scrollTo(0, 0);
     }
 
     function afterLeave(data) {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.classList.remove('menu-open');
+    }
+
+    function beforeEnter(data) {
+        scripts.load();
+
+        document.documentElement.style.scrollBehavior = "smooth";
     }
 
     function enter(data) {
@@ -99,27 +51,22 @@ export default async function (scripts) {
         if (menuToggle)
             menuToggle.classList.remove('active');
 
-        // Reset scroll
-        scroll(0, 0);
-
-        // Reset scrollBehavior
-        setTimeout(() => {
-            document.documentElement.style.scrollBehavior = "smooth";
-        }, 1000);
-
-        // BigImageSlider hooks
-        initComponents();
-
         pageTransitionOpening(data);
     }
 
-    function after(data, scripts) {
+    function after(data) {
+        // Set new body classes
         let parser = new DOMParser();
         let htmlDoc = parser.parseFromString(data.next.html.replace(/(<\/?)body( .+?)?>/gi, '$1notbody$2>', data.next.html), 'text/html');
         let bodyClasses = htmlDoc.querySelector('notbody').getAttribute('class');
         document.body.setAttribute('class', bodyClasses);
 
-        scripts.init();
+        // Set active menu item class
+        const mainMenu = htmlDoc.querySelector('.main-menu');
+        const updatedItems = mainMenu.querySelectorAll('.menu-item');
+        document.querySelectorAll('.main-menu .menu-item').forEach((item, index) => {
+            item.classList.value = updatedItems[index].classList.value;
+        })
     }
 
     function leave(data, done, urlPartsToPreventPageChange, urlPartsToBlock) {
@@ -149,4 +96,45 @@ export default async function (scripts) {
             window.location.href = href
         }
     }
+
+    // Init
+    barba.init({
+        debug: true,
+        timeout: 6000,
+        sync: false,
+        logLevel: "debug",
+        prevent: ({el}) => el.classList && el.classList.contains('no-barba'),
+        transitions: [{
+            name: 'default-transition',
+            once() {
+                once()
+            },
+
+            beforeLeave(data) {
+                beforeLeave(data)
+            },
+
+            leave(data) {
+                // PERMET DE RENDRE LA TRANSITION ASYNCHRONE CHARGEMENT PENDANT QUE LA TRANSITION SE FAIT
+                const done = this.async();
+                leave(data, done, urlPartsToPreventPageChange, urlPartsToBlock);
+            },
+
+            afterLeave(data) {
+                afterLeave(data);
+            },
+
+            beforeEnter(data) {
+                beforeEnter(data);
+            },
+
+            enter(data) {
+                enter(data);
+            },
+
+            after(data) {
+                after(data, scripts);
+            }
+        }],
+    });
 }
