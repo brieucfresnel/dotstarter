@@ -1,28 +1,58 @@
-import barba from './lib/barba';
+// Lib
+import barba from "./lib/barba";
+import loadGsap from "./lib/gsap-loader";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 // Components
-import menu from './components/menu';
+import menu from "./components/menu";
+import scrollTop from "./components/scrolltop";
 
-// Plugins
-import woocommerce from './plugins/woocommerce';
+// Animations
+import layoutAnimations from "./animations/layout";
+import loadLayoutScripts from "./layouts";
+
+// Templates
+
+
+var sliders = [];
 
 jQuery(($) => {
     const scripts = {
-        init: function () {
+        once: () => {
             menu();
+            scrollTop();
+            layoutAnimations();
 
-            if ($("body").hasClass('woocommerce')) {
-                woocommerce();
-            }
+            sliders.forEach(slider => slider.init());
+
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 500)
+        },
+        load: () => {
+            menu();
+            scrollTop();
+
+            sliders.forEach(slider => slider.init())
+
+            layoutAnimations();
+            loadLayoutScripts();
+
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 500)
         }
     }
 
     $(document).ready(() => {
         // Slick Sliders
+        loadGsap();
+
         if (ajaxConfig.barbaActive) {
             barba(scripts);
-        } else {
-            scripts.init();
+            return;
         }
+
+        scripts.load();
     })
 })
