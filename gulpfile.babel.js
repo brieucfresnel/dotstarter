@@ -1,5 +1,6 @@
 import webpack from 'webpack-stream';
 import {src, dest, watch, series, parallel} from 'gulp';
+import concat from 'gulp-concat';
 import yargs from 'yargs';
 import cleanCss from 'gulp-clean-css';
 import gulpif from 'gulp-if';
@@ -44,6 +45,38 @@ export const generalScripts = () => {
         .pipe(cache.clear());
 }
 
+// export const layoutScripts = () => {
+//     return src(['dotstarter/**/**/*.js'])
+//         .pipe(named())
+//         .pipe(webpack({
+//             module: {
+//                 rules: [
+//                     {
+//                         test: /\.js$/,
+//                         use: {
+//                             loader: 'babel-loader',
+//                             options: {
+//                                 presets: ['@babel/preset-env']
+//                             }
+//                         }
+//                     }
+//                 ]
+//             },
+//             mode: PRODUCTION ? 'production' : 'development',
+//             devtool: !PRODUCTION ? 'inline-source-map' : false,
+//             output: {
+//                 filename: '[name].js'
+//             },
+//             externals: {
+//                 jquery: '$'
+//             }
+//         }))
+//         .pipe(concat('layouts.js'))
+//         .pipe(dest('dist/js'))
+//         .pipe(cache.clear());
+//
+// }
+
 export const generalStyles = () => {
     return src(['assets/scss/frontend.scss', 'assets/scss/admin.scss'])
         .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
@@ -53,7 +86,6 @@ export const generalStyles = () => {
         .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
         .pipe(dest('dist/css'))
         .pipe(server.stream())
-        .pipe(cache.clear());
 }
 
 export const layoutStyles = () => {
@@ -66,12 +98,12 @@ export const layoutStyles = () => {
         .pipe(server.stream());
 }
 
-
 export const watchForChanges = () => {
-    watch(['dotstarter/**/**/*.php', 'dotstarter/**/**/*.js'], series(generalScripts, reload));
+    watch(['dotstarter/**/**/*.php'], series(generalScripts, reload));
+    watch('dotstarter/**/**/*.js', series(generalScripts, reload));
     watch('dotstarter/**/**/*.scss', series(layoutStyles, reload));
 
-    watch('assets/scss/**/*.scss', series(generalStyles, reload));
+    watch('assets/scss/**/*.scss', series(generalStyles));
     watch('assets/js/**/*.js', series(generalScripts, reload));
 }
 
