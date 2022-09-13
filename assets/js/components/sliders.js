@@ -18,8 +18,8 @@ class SlickSlider {
                     const layoutId = '#' + layout.id;
 
                     const sliderSelector = `${layoutId} ${layoutClass}__slider`;
-                    const prevButtonSelector = `#${layoutSlug}-prev`;
-                    const nextButtonSelector = `#${layoutSlug}-next`;
+                    const prevButtonSelector = `${layoutId} .btn-prev`;
+                    const nextButtonSelector = `${layoutId} .btn-next`;
 
                     if (!$(sliderSelector).length) return;
 
@@ -29,20 +29,15 @@ class SlickSlider {
                         nextArrow: nextButtonSelector,
                     });
 
-                    $(sliderSelector).on('beforeChange', function (event, slick) {
+
+                    $(sliderSelector).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
                         let indexElem = $(layoutId).find('.current-index');
-
-                        const slidesCount = slick.$slides.length;
-                        const currentIndex = parseInt(indexElem.text());
-                        const nextIndex = (currentIndex + 1) > slidesCount ? 1 : currentIndex + 1;
-
-                        indexElem.text(nextIndex);
+                        indexElem.text(nextSlide + 1);
                     });
 
                     sliders.push(slider);
                 });
             })
-
         })
     };
 

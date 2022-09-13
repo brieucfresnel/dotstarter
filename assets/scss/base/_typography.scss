@@ -1,0 +1,53 @@
+.heading2 {
+  font-family: $accentFont;
+  font-size: 2.3125rem;
+  line-height: 120%;
+  font-weight: 400;
+}
+
+.heading3 {
+  font-size: 2.1875rem;
+  line-height: 100%;
+  font-weight: 400;
+
+  &--thin {
+    font-weight: 100;
+  }
+
+  &--bold {
+    font-weight: bold;
+  }
+}
+
+.heading4 {
+  font-size:2.1875rem;
+
+  &--bold {
+    font-weight: bold;
+  }
+}
+
+.body-lg {
+  font-size: 1.1875rem;
+  line-height: 140%;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+@media screen and (min-width: $screen-md) {
+  .heading2 {
+    font-size: 4.6875rem;
+  }
+
+  .heading3 {
+    font-size: 2.9375rem;
+  }
+
+  .heading4 {
+    font-size: 2.1875rem;
+  }
+
+  .body-lg {
+    font-size: 1.375rem;
+  }
+}

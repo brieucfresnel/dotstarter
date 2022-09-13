@@ -1,25 +1,37 @@
-// COLORS =============================================
+// Fonts
+$mainFont: PPNeueMontreal, sans-serif;
+$accentFont: BallPill, sans-serif;
+
+/**
+ * COLORS
+ */
+
+// Grayscale
 $white: #ffffff;
-$red : #DB6F76;
-$darkred : #BE2724;
 $black : #000000;
-$darkgrey: #292929;
-$grey: #797979;
-$lightgrey: #A3A3A3;
-$greyText: #727272;
-$blue : #0000FF;
-$turquoise : #00FFFF;
-$turquoise2 : #009b9b;
-$darkdot : #090d13;
-$bluedot : #0005FA;
 
-$orange: #ED770A;
+$darkgrey: #232323;
+$pink: #EB56AF;
+$yellow: #FBE969;
+$green: #58C06D;
+$red: #DA464B;
+$blue: #8EA6DB;
+$yellow-dark: #FABF39;
+$sand: #DBC797;
+$orange: #F3723D;
+$blue-light: #81BFBE;
+$mauve: #C3B5E0;
 
-$primary : $darkdot;
-$secondary : $blue;
-$accent: $red;
+$error: #F85656;
 
-$body-bg-color: #FBF9F9;
+//$clr-text-primary: $pinkish-white;
+//$clr-text-primary-muted: $pinkish-white-muted;
+//$clr-text-grey: $grey;
+
+$clr-text-selection : $white;
+$clr-text-selection-bg: $darkgrey;
+
+$clr-body-bg: $white;
 
 // BREAKPOINTS ========================================
 $screen-sm: 576px;
@@ -32,35 +44,14 @@ $screen-xxl: 1400px;
 $container-xs: 100%;
 $container-sm: 540px;
 $container-md: 720px;
-$container-lg: 992px;
-$container-xl: 1140px;
-$container-xxl: 1320px;
+$container-lg: 942px;
+$container-xl: 1150px;
+$container-xxl: 1400px;
 
 // HAMBURGER ==========================================
 // Possibles values : always / with-breakpoint / none
 $is-hamburger : with-breakpoint;
-$hamburger-breakpoint : 800px;
-
-$maxWidth: 585px;
-
-// MARGINS  ===========================================
-$margin-top: 10%;
-
-// VERTICAL SPACE =====================================
-$space: 2.3rem;
-
-$spacer-sm : calc(#{$space} * 0.75);
-$spacer-md: calc(#{$space} * 2);
-$spacer-lg: calc(#{$space} * 2.25);
-$spacer-xl: calc(#{$space} * 3);
-$spacer-xxl: calc(#{$space} * 4);
-
-// AJOUT DE L'ESPACEMENT  =============================
-$espacement: 30px;
-
-// TEXTE
-$color-background-select-texte: rgba(240, 248, 248, 0.7);
-$color-select-texte : #2F2F2F;
+$hamburger-breakpoint : 1200px;
 
 // Transitions
 // ====================================================

@@ -1,0 +1,15 @@
+.c-breadcrumbs {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 40px;
+
+  &, a, p, span {
+    font-size: 0.8125rem;
+    line-height: 120%;
+    font-weight: 400;
+  }
+
+  a {
+    color: $yellow-dark;
+  }
+}

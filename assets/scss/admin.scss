@@ -1,7 +1,11 @@
-@import './settings/reset';
-@import './settings/variables';
-@import './settings/helpers';
-@import './settings/fonts';
-@import './settings/typography';
+@import './base/reset';
+@import './base/variables';
+@import './base/utils';
+@import './base/fonts';
+@import './base/typography';
 
 @import './layout/container';
+
+@import './components/button';
+@import './components/slider';
+@import './components/tag';

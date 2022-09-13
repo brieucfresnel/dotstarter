@@ -1,0 +1,97 @@
+.c-button {
+  $this: &;
+  padding: 13px 15px 10px;
+  border-radius: 70px;
+
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 1.3125rem;
+  font-family: $accentFont;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+
+  // Default colors
+  border: 1px solid transparent;
+  color: $darkgrey;
+
+  &, svg, svg path {
+    transition: all .3s;
+  }
+
+  svg {
+    margin-left: 5px;
+    position: relative;
+    top: -1px;
+  }
+
+  &--dark {
+    background-color: $darkgrey;
+    color: $white;
+  }
+
+  &--white {
+    background-color: $white;
+    color: $darkgrey;
+    border-color: $darkgrey;
+  }
+
+  &--mauve {
+    border-color: $darkgrey;
+    background-color: $mauve;
+  }
+
+  &--yellow {
+    background-color: $yellow-dark;
+  }
+
+  @media screen and (min-width: $container-md) {
+    &--dark {
+      &:hover {
+        border-color: $black;
+        background-color: $white;
+        color: $black;
+
+        svg path {
+          stroke: $black;
+        }
+      }
+    }
+    &--white {
+      &:hover {
+        border-color: $white;
+        background-color: $black;
+        color: $white;
+
+        svg path {
+          stroke: $white;
+        }
+      }
+    }
+    &--mauve {
+      &:hover {
+        border-color: $mauve;
+        background-color: $darkgrey;
+        color: $mauve;
+
+        svg path {
+          stroke: $white;
+        }
+      }
+    }
+
+    &--yellow {
+      &:hover {
+        border-color: $darkgrey;
+        background-color: $darkgrey;
+        color: $yellow-dark;
+
+        svg path {
+          stroke: $white;
+        }
+      }
+    }
+
+  }
+}

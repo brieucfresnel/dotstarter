@@ -1,0 +1,28 @@
+
+// Font Weights
+.weight-medium { font-weight: 500 !important; }
+.weight-bold   { font-weight: 700 !important; }
+.weight-normal { font-weight: 400 !important; }
+
+// Text Transform
+.uppercase     { text-transform: uppercase;  }
+.capitalize    { text-transform: capitalize; }
+
+// Flex properties
+.d-flex          { display: flex;                  }
+.align-center    { align-items: center;            }
+.justify-between { justify-content: space-between; }
+
+// Gap
+.gap-sm { gap: 10px; }
+.gap-md { gap: 25px; }
+
+// Screen Readers only
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  top: auto;
+  overflow: hidden;
+}

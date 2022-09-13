@@ -1,10 +1,30 @@
-.container {
+.l-container {
   width: 100%;
-  padding-left: 2.5%;
-  padding-right: 2.5%;
+  margin: 0 auto;
+  max-width: 95%;
+
+  @media screen and (min-width: $screen-sm) {
+    max-width: $container-sm;
+  }
+
+  @media screen and (min-width: $screen-md) {
+    max-width: $container-md;
+  }
+
+  @media screen and (min-width: $container-lg) {
+    max-width: $container-lg;
+  }
+
+  @media screen and (min-width: $screen-xl) {
+    max-width: $container-xl;
+  }
+
+  @media screen and (min-width: $screen-xxl) {
+    max-width: $container-xxl;
+  }
 }
 
-.fluid-container {
+.l-container-fluid {
   width: 100%;
   margin: 0 auto;
   max-width: 95%;

@@ -1,32 +1,33 @@
-/* ----- SETTINGS ----- */
-/* Legacies, settings and overall configurations */
+/* ----- BASE ----- */
+/* Legacies, base and overall configurations */
 
-@import './settings/reset';
-@import './settings/variables';
-@import './settings/helpers';
-@import './settings/fonts';
-@import './settings/typography';
-@import './settings/elements';
-
-/* ----- LIB ----- */
-
-@import './lib/barba-transitions';
+@import './base/reset';
+@import './base/variables';
+@import './base/fonts';
+@import './base/typography';
+@import './base/utils';
+@import './base/base';
 
 /* ----- LAYOUT ----- */
 /* Layout and general components style */
 
 @import "./layout/container";
 @import "./layout/footer";
-@import "./layout/menu-toggle";
 @import "./layout/menu";
+@import "./layout/topbar";
 
-
-/* ----- OBJECTS ----- */
-
+/* ----- COMPONENT ----- */
+@import './components/transition-panel';
 @import "./components/layout";
+@import "./components/button";
+@import "./components/accordion";
+@import "./components/tag";
+@import "./components/slider";
+@import "./components/newsletter-form";
+@import "./components/breadcrumbs";
+@import "./components/icons";
 
-/* ----- COMPONENTS ----- */
-
-/* TEMPLATES SPECIFICS */
-
+/* ---- TEMPLATES ------------ */
+@import "./templates/events-single";
+@import "./templates/template-legal"; 
 

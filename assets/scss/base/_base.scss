@@ -1,0 +1,43 @@
+*::selection {
+  background-color: $clr-text-selection-bg !important;
+  color: $clr-text-selection !important;
+  -webkit-text-fill-color: $clr-text-selection !important;
+}
+
+::-moz-selection {
+  background: $clr-text-selection-bg !important;
+  color: $clr-text-selection !important;
+  -webkit-text-fill-color: $clr-text-selection !important;
+  /* Gecko Browsers */
+}
+
+body {
+  background-color: $clr-body-bg;
+  overflow-x: hidden;
+  font-family: $mainFont;
+  margin: 0;
+}
+
+* {
+  font-family: $mainFont;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul, li, p, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: 0;
+
+  &:focus, &:focus-within {
+    outline: 0;
+  }
+}

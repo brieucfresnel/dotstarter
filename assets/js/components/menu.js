@@ -1,25 +1,25 @@
 let toggle, menuWrapper, menuHamburger;
 
 export default function () {
+    const $ = jQuery;
     toggle = document.querySelector('#menu-toggle');
-    menuWrapper = document.querySelector('.main-menu');
+    menuWrapper = document.querySelector('#main-menu');
     menuHamburger = document.querySelector('.mobile-menu');
+    const stickyPosition = $('#main-menu').height();
 
     if (menuHamburger && toggle) {
-
         toggle.removeEventListener('click', toggleMenu);
-
         toggle.addEventListener('click', toggleMenu);
     }
 
     window.addEventListener('scroll', () => {
         document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
 
-        if (window.scrollY > 50) {
+        if (window.scrollY > stickyPosition) {
             if (!menuWrapper.classList.contains('is-condensed')) {
                 menuWrapper.classList.add('is-condensed');
             }
-        } else {
+        } else{
             if (menuWrapper.classList.contains('is-condensed')) {
                 menuWrapper.classList.remove('is-condensed');
             }
