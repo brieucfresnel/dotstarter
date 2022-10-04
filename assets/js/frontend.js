@@ -11,14 +11,8 @@ import scrollTop from "./components/scrolltop";
 import layoutAnimations from "./animations/layout";
 import loadLayoutScripts from "./layouts";
 
-import {eventsSlider} from "../../dotstarter/layouts/events-slider/events-slider";
-import {aboutTopSlider, aboutCardsSlider} from "../../dotstarter/layouts/about-metronum/about-metronum";
-import {partnersSlider} from "../../dotstarter/layouts/partners/partners";
 
-import {singleEventsSlider} from "./templates/events-single";
-
-
-var sliders = [eventsSlider, aboutTopSlider, aboutCardsSlider, partnersSlider, singleEventsSlider];
+var sliders = [];
 
 jQuery(($) => {
     const scripts = {
