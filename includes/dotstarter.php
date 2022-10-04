@@ -80,12 +80,15 @@ if (!class_exists('DOT_Starter')) {
             wp_enqueue_script('jquery');
             wp_enqueue_script('slick', DOT_THEME_URI . '/node_modules/slick-carousel/slick/slick.min.js', array(), null, true);
 
+            $main_js_deps = ['jquery', 'slick'];
+
             if(get_field('barba', 'option')) {
                 $args['barbaActive'] = true;
+                $main_js_deps[] = 'barbajs';
                 wp_enqueue_script('barbajs', 'https://unpkg.com/@barba/core', array(), null, true);
             }
 
-            wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/frontend.js', array('jquery', 'barbajs', 'slick'), 1.0, true);
+            wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/frontend.js', $main_js_deps, 1.0, true);
 
             if (get_field('gmaps_api_key', 'option')) {
                 wp_enqueue_script('google-map', 'https://maps.googleapis.com/maps/api/js?key=' . get_field('gmaps_api_key', 'option'), array(), '3', true);
