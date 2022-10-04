@@ -1,3 +1,6 @@
+@use 'colors'as *;
+@use 'variables'as *;
+
 *::selection {
   background-color: $clr-text-selection-bg !important;
   color: $clr-text-selection !important;
@@ -11,22 +14,50 @@
   /* Gecko Browsers */
 }
 
+html {
+  &.menu-open {
+    overflow: hidden;
+  }
+}
+
 body {
-  background-color: $clr-body-bg;
+  background-color: $clr-body-bg !important;
   overflow-x: hidden;
-  font-family: $mainFont;
   margin: 0;
+  transition: 0.8s ease-in-out;
+
+  &.menu-open {
+    overflow: hidden;
+  }
+
+  &:not(.wp-admin) {
+    opacity: 0;
+    padding: 92px 0 0;
+  }
+
+  &:not(.wp-admin).is-loaded {
+    opacity: 1;
+  }
 }
 
 * {
-  font-family: $mainFont;
+  font-family: $font-body;
 }
 
 a {
   text-decoration: none;
+  color: #000;
 }
 
-ul, li, p, h1, h2, h3, h4, h5, h6 {
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
   padding: 0;
 }
@@ -37,7 +68,8 @@ input {
   border: 0;
   background: 0;
 
-  &:focus, &:focus-within {
+  &:focus,
+  &:focus-within {
     outline: 0;
   }
 }

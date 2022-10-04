@@ -1,11 +1,17 @@
-@import './base/reset';
-@import './base/variables';
-@import './base/utils';
-@import './base/fonts';
-@import './base/typography';
+@use './base/reset';
+@use './base/colors';
+@use './base/breakpoints';
+@use './base/variables';
+@use './base/mixins';
+@use './base/fonts';
+@use './base/typography';
+@use './base/utils';
+@use './base/base';
 
-@import './layout/container';
 
-@import './components/button';
-@import './components/slider';
-@import './components/tag';
+@use './layout/container';
+
+@use './components/buttons';
+@use './components/breadcrumbs';
+@use './components/sliders';
+@use './components/banner';

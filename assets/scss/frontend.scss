@@ -1,33 +1,34 @@
 /* ----- BASE ----- */
 /* Legacies, base and overall configurations */
 
-@import './base/reset';
-@import './base/variables';
-@import './base/fonts';
-@import './base/typography';
-@import './base/utils';
-@import './base/base';
+@forward './base/reset';
+@forward './base/colors';
+@forward './base/breakpoints';
+@forward './base/variables';
+@forward './base/mixins';
+@forward './base/fonts';
+@forward './base/typography';
+@forward './base/utils';
+@forward './base/base';
 
 /* ----- LAYOUT ----- */
 /* Layout and general components style */
 
-@import "./layout/container";
-@import "./layout/footer";
-@import "./layout/menu";
-@import "./layout/topbar";
+@forward "./layout/container";
+@forward "./layout/footer";
+@forward "./layout/navbar";
 
-/* ----- COMPONENT ----- */
-@import './components/transition-panel';
-@import "./components/layout";
-@import "./components/button";
-@import "./components/accordion";
-@import "./components/tag";
-@import "./components/slider";
-@import "./components/newsletter-form";
-@import "./components/breadcrumbs";
-@import "./components/icons";
+/* ----- COMPONENTS ----- */
+@forward './components/icons';
+@forward './components/buttons';
+@forward './components/breadcrumbs';
+@forward './components/sliders';
+@forward './components/banner';
 
 /* ---- TEMPLATES ------------ */
-@import "./templates/events-single";
-@import "./templates/template-legal"; 
+@forward "./templates/template-legal";
+@forward "./templates/blog";
+
+@forward "./templates/posts/single-post-meta";
+@forward "./templates/posts/single-post-related";
 

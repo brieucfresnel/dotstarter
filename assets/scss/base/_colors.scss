@@ -1,0 +1,23 @@
+$colors: (
+        black: #000000,
+        gray: #696969,
+        white: #F6F5F1,
+        white-yellow: #EEEDE2,
+        true-white: #FFFFFF,
+        orange: #FF7939,
+        orange2: #FFC9AF,
+        green: #5FC098,
+        green2: #D9F290,
+        green3: #EDFDB6,
+        purple: #6261FB,
+        purple2: #A4A4FF,
+);
+
+@function clr($name) {
+  $color: map-get($colors, $name);
+  @return $color;
+}
+
+$clr-body-bg: map-get($colors, white);
+$clr-text-selection: map-get($colors, white);
+$clr-text-selection-bg: map-get($colors, black);

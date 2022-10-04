@@ -1,21 +1,49 @@
+@use 'colors';
+@use '../../../assets/scss/base/mixins'as *;
 
 // Font Weights
-.weight-medium { font-weight: 500 !important; }
-.weight-bold   { font-weight: 700 !important; }
-.weight-normal { font-weight: 400 !important; }
+.weight-medium {
+  font-weight: 500 !important;
+}
+
+.weight-bold {
+  font-weight: 700 !important;
+}
+
+.weight-normal {
+  font-weight: 400 !important;
+}
 
 // Text Transform
-.uppercase     { text-transform: uppercase;  }
-.capitalize    { text-transform: capitalize; }
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
 
 // Flex properties
-.d-flex          { display: flex;                  }
-.align-center    { align-items: center;            }
-.justify-between { justify-content: space-between; }
+.d-flex {
+  display: flex;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
 
 // Gap
-.gap-sm { gap: 10px; }
-.gap-md { gap: 25px; }
+.gap-sm {
+  gap: 10px;
+}
+
+.gap-md {
+  gap: 25px;
+}
 
 // Screen Readers only
 .sr-only {
@@ -25,4 +53,56 @@
   height: 1px;
   top: auto;
   overflow: hidden;
+}
+
+@each $name,
+$value in colors.$colors {
+  .text-#{"" + $name} {
+    color: $value;
+  }
+}
+
+@each $name,
+$value in colors.$colors {
+
+  .bg-#{"" + $name} {
+    background-color: $value;
+  }
+
+
+  .section-title .bg-#{"" + $name},
+  .c-content-card__title .bg-#{"" + $name}{
+    background-color: transparent!important;
+    background-image: linear-gradient(to right, $value, $value);
+    background-position: 0 bottom;
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size .6s ease-out;
+    position: relative;
+    // display: inline-block;
+
+    // &:before {
+    //   // content: "";
+    //   display: block;
+    //   position: absolute;
+    //   left: 0;
+    //   top: 0;
+    //   bottom: 0;
+    //   width: 100%;
+    //   transform: scaleX(0);
+    //   transition: transform .6s ease;
+    //   transform-origin: left center-out;
+    // }
+
+    &.is-inview {
+      background-size: 100% 100%;
+
+      @include media-breakpoint-up(sm) {
+
+        // &:before {
+        //   transform: scaleX(1);
+        // }
+      }
+    }
+  }
 }

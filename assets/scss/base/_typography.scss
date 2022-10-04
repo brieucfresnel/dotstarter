@@ -1,53 +1,213 @@
-.heading2 {
-  font-family: $accentFont;
-  font-size: 2.3125rem;
-  line-height: 120%;
-  font-weight: 400;
-}
+@use "./variables" as *;
+@use "./mixins" as *;
+@use "./colors" as *;
 
-.heading3 {
-  font-size: 2.1875rem;
-  line-height: 100%;
-  font-weight: 400;
+.section-title {
+  position: relative;
+  z-index: 1;
 
-  &--thin {
-    font-weight: 100;
-  }
+  img {
+    height: .9em;
+    position: relative;
+    top: -.08em;
+    margin-bottom: 5px;
+    vertical-align: middle;
+    z-index: -1;
 
-  &--bold {
-    font-weight: bold;
-  }
-}
-
-.heading4 {
-  font-size:2.1875rem;
-
-  &--bold {
-    font-weight: bold;
+    &:first-child {
+      height: 1.5em;
+    }
   }
 }
 
-.body-lg {
-  font-size: 1.1875rem;
-  line-height: 140%;
-  font-weight: 400;
-  letter-spacing: 0.02em;
+.subtitle {
+  display: flex;
+  align-items: center;
+
+  &, > span {
+    font-family: $font-accent;
+    font-size: 1.25rem;
+    line-height: 100%;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: clr(gray);
+  }
+
+  span {
+    margin-left: 6px;
+  }
+
+  svg {
+    height: 9px;
+    margin-right: 5px;
+    position: relative;
+    top: -1px;
+  }
 }
 
-@media screen and (min-width: $screen-md) {
-  .heading2 {
-    font-size: 4.6875rem;
+// ========== HEADINGS FONTS =========
+
+$titles: (
+    mobile: (
+        xxl: (
+            font-size: 2.0625rem,
+            line-height: 1,
+            font-weight: 300,
+            font-family: $font-headings,
+        ),
+        xl: (
+            font-size: 1.875rem,
+            line-height: 1.15,
+            font-weight: 300,
+            font-family: $font-headings,
+        ),
+        lg: (
+            font-size: 1.875rem,
+            line-height: 1.15,
+            font-weight: 300,
+            font-family: $font-headings,
+        ),
+        md: (
+            font-size: 1.875rem,
+            line-height: 1.16,
+            font-weight: 300,
+            font-family: $font-headings,
+        ),
+        sm: (
+            font-size: 1.25rem,
+            line-height: 1.3,
+            font-weight: 300,
+            font-family: $font-headings,
+        ),
+        xs: (
+            font-size: 1.15rem,
+            line-height: 1.4,
+            font-weight: 300,
+            font-family: $font-headings,
+        ),
+        xxs: (
+            font-size: 1.05rem,
+            line-height: 1.4,
+            font-weight: 300,
+            font-family: $font-headings,
+        )
+    ),
+    desktop: (
+        xxl: (
+            font-size: 4.375rem,
+            line-height: 4.15625rem,
+        ),
+        xl: (
+            font-size: 3.75rem,
+            line-height: 4.76875rem,
+        ),
+        lg: (
+            font-size: 3.125rem,
+            line-height: 4.14375rem,
+        ),
+        md: (
+            font-size: 2.5rem,
+            line-height: 1.2,
+        ),
+        sm: (
+            font-size: 2.125rem,
+            line-height: 1.3
+        ),
+        xs: (
+            font-size: 1.875rem,
+            line-height: 1.4
+        ),
+        xxs: (
+          font-size: 1.5625rem,
+          line-height: 1.4,
+        )
+    )
+);
+
+// ========== BODY FONTS ==========
+
+$body: (
+    mobile: (
+        xs: (
+            font-family: $font-body,
+            font-size: 0.75rem,
+            line-height: 1.15,
+        ),
+        md: (
+            font-family: $font-body,
+            font-size: 1.0625rem,
+            line-height: 1.4
+        ),
+        lg: (
+            font-family: $font-body,
+            font-size: 1.125rem,
+            line-height: 1.2
+        ),
+        xl: (
+            font-family: $font-body,
+            font-size: 1.25rem,
+            line-height: 1.45
+        ),
+    ),
+    desktop: (
+    )
+);
+
+@each $size, $title in map-get($titles, mobile) {
+  .title-#{$size} {
+    &, span, div {
+      font-family: map-get($title, font-family);
+      font-size: map-get($title, font-size);
+      line-height: map-get($title, line-height);
+      font-weight: map-get($title, font-weight);
+    }
+
+    span[class^="bg-"] {
+      white-space: break-spaces;
+      // display: inline-block;
+
+      &, div {
+        border-radius: 4px;
+        padding: 3px;
+      }
+
+      &, > div:first-child, > div:last-child {
+
+      }
+    }
+  }
+}
+
+.title-xxl {
+  span[class^="bg-"] {
+    position: relative;
+    z-index: -1;
+  }
+}
+
+@each $size, $body in map-get($body, mobile) {
+  .body-#{$size} {
+    font-family: map-get($body, font-family);
+    font-size: map-get($body, font-size);
+    line-height: map-get($body, line-height);
+    font-weight: map-get($body, font-weight);
+  }
+}
+
+@include media-breakpoint-up(md) {
+  @each $size, $title in map-get($titles, desktop) {
+    .title-#{$size} {
+      &, span, div {
+        font-size: map-get($title, font-size);
+        line-height: map-get($title, line-height);
+      }
+    }
   }
 
-  .heading3 {
-    font-size: 2.9375rem;
-  }
-
-  .heading4 {
-    font-size: 2.1875rem;
-  }
-
-  .body-lg {
-    font-size: 1.375rem;
+  @each $size, $body in map-get($body, desktop) {
+    .body-#{$size} {
+      font-size: map-get($body, font-size);
+      line-height: map-get($body, line-height);
+    }
   }
 }

@@ -1,0 +1,129 @@
+@use "../../../assets/scss/base/colors" as *;
+@use "../../../assets/scss/base/mixins" as *;
+
+.c-banner {
+  margin-top: 50px;
+
+  $main: &;
+
+  .l-container {
+    position: relative;
+  }
+
+  &__content {
+    padding: 60px 20px;
+    border-radius: 20px;
+    position: relative;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  .c-button {
+    margin-top: 25px;
+  }
+
+  &__deco-top {
+    content: url('/wp-content/themes/amecote/assets/icons/assistant-default.svg');
+    position: absolute;
+    left: 20px;
+    top: -40px;
+    height: 80px;
+    z-index: 1;
+  }
+
+  &__deco-bot {
+    content: url('/wp-content/themes/amecote/assets/icons/shoes-orange.svg');
+    position: absolute;
+    left: 20px;
+    bottom: -12.5px;
+    height: 25px;
+    z-index: 1;
+  }
+
+  &__polygon {
+    display: none;
+  }
+
+  &.green {
+    #{$main}__content {
+      background-color: clr(green2);
+      color: clr(black);
+    }
+
+    #{$main}__polygon path {
+      fill: clr(green3);
+
+    }
+
+    #{$main}__title {
+      [class^=bg-] {
+        text-shadow: -1px 1px 0px clr(green2);
+        display: inline-block;
+      }
+    }
+  }
+
+  &.purple {
+    #{$main}__content {
+      background-color: clr(purple);
+      color: clr(white);
+    }
+
+    #{$main}__polygon path {
+      fill: clr(purple2);
+    }
+
+    #{$main}__title {
+      [class^=bg-] {
+        text-shadow: -1px 1px 0px clr(purple);
+      }
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    &__title {
+      margin-bottom: 0;
+    }
+
+    &__content {
+      padding: 70px 60px;
+      max-width: 90%;
+      margin: 0 auto;
+
+      display: flex;
+      align-items: center;
+      column-gap: 50px;
+      overflow: hidden;
+
+      > * {
+        min-width: 0;
+        flex-basis: 50%;
+      }
+    }
+
+    &__deco-top {
+      left: calc(5% + 20px);
+    }
+
+    &__deco-bot {
+      left: calc(5% + 20px);
+    }
+
+    &__polygon {
+      display: block;
+      content: url('/wp-content/themes/amecote/assets/img/heptagon-green.svg');
+      position: absolute;
+      bottom: -9px;
+      right: 0;
+      transform: translate(35%, 25%);
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    &__content {
+      column-gap: 60px;
+    }
+  }
+}

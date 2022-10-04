@@ -1,15 +1,38 @@
-.c-breadcrumbs {
-  position: relative;
-  z-index: 1;
-  margin-bottom: 40px;
+@use '../base/colors' as *;
 
-  &, a, p, span {
-    font-size: 0.8125rem;
-    line-height: 120%;
-    font-weight: 400;
+.c-breadcrumbs {
+  font-size: 0.9375rem;
+  line-height: 1;
+
+  &, > span > span {
+    display: flex;
+    align-items: center;
+
+    :not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+
+  svg {
+    position: relative;
+    top: -1px;
+    height: 9px;
+    width: 11px;
+  }
+
+  svg {
+    stroke: clr(orange);
+  }
+
+  > svg {
+    stroke: clr(gray);
+  }
+
+  span {
+    color: clr(orange);
   }
 
   a {
-    color: $yellow-dark;
+    color: clr(gray);
   }
 }
