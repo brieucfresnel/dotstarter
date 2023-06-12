@@ -1,128 +1,136 @@
-import webpack from 'webpack-stream';
-import {src, dest, watch, series, parallel} from 'gulp';
-import concat from 'gulp-concat';
-import yargs from 'yargs';
-import cleanCss from 'gulp-clean-css';
-import gulpif from 'gulp-if';
-import postcss from 'gulp-postcss';
-import sourcemaps from 'gulp-sourcemaps';
-import autoprefixer from 'autoprefixer';
-import named from 'vinyl-named';
-import del from "del";
-import browserSync from 'browser-sync';
+import gulp from "gulp";
+const { src, dest, parallel, series, watch } = gulp;
 
-const PRODUCTION = yargs.argv.prod;
-const sass = require('gulp-sass')(require('node-sass'));
-const cache = require('gulp-cache');
+// Load plugins
+import browsersync from 'browser-sync'
+import dotenv from "dotenv";
+import rename from 'gulp-rename'
+import gulpSass from 'gulp-sass'
+import dartSass from 'sass'
+import autoprefixer from 'gulp-autoprefixer'
+import cssnano from 'gulp-cssnano'
+import concat from 'gulp-concat'
+import aliases from 'gulp-style-aliases'
+import gulpif from 'gulp-if'
+import sourcemaps from 'gulp-sourcemaps'
+import { fileURLToPath } from 'url';
+import path from "path";
+import { rimraf } from "rimraf";
+import webpackStream from "webpack-stream";
+import TerserPlugin from "terser-webpack-plugin";
 
-export const generalScripts = () => {
-    return src(['assets/js/frontend.js', 'assets/js/admin.js'])
-        .pipe(named())
-        .pipe(webpack({
+dotenv.config();
+const server = browsersync.create();
+const ENV = process.env.ENVIRONMENT;
+const PRODUCTION = ENV === 'production';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const sourceRoot = path.join(__dirname)
+
+const sass = gulpSass(dartSass);
+
+function clean() {
+    return rimraf('dist')
+}
+
+function js() {
+    const sourcePaths = ['./assets/js/frontend.js']
+
+    return src(sourcePaths)
+        .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
+        .pipe(webpackStream({
             module: {
                 rules: [
                     {
-                        test: /\.js$/,
-                        use: {
-                            loader: 'babel-loader',
-                            options: {
-                                presets: ['@babel/preset-env']
-                            }
-                        }
+                        test: /\.(js)$/,
+                        exclude: /(node_modules)/,
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/env']
+                        },
+                        resolve: {
+                            fullySpecified: false,
+                        },
                     }
                 ]
             },
-            mode: PRODUCTION ? 'production' : 'development',
-            devtool: !PRODUCTION ? 'inline-source-map' : false,
+            mode: ENV,
+            devtool: ENV === 'development' ? 'source-map' : false,
             output: {
-                filename: '[name].js'
+                publicPath: ".",
+                filename: "bundle.min.js",
             },
-            externals: {
-                jquery: 'jQuery'
-            }
         }))
         .pipe(dest('dist/js'))
-        .pipe(cache.clear());
-}
-
-// export const layoutScripts = () => {
-//     return src(['dotstarter/**/**/*.js'])
-//         .pipe(named())
-//         .pipe(webpack({
-//             module: {
-//                 rules: [
-//                     {
-//                         test: /\.js$/,
-//                         use: {
-//                             loader: 'babel-loader',
-//                             options: {
-//                                 presets: ['@babel/preset-env']
-//                             }
-//                         }
-//                     }
-//                 ]
-//             },
-//             mode: PRODUCTION ? 'production' : 'development',
-//             devtool: !PRODUCTION ? 'inline-source-map' : false,
-//             output: {
-//                 filename: '[name].js'
-//             },
-//             externals: {
-//                 jquery: '$'
-//             }
-//         }))
-//         .pipe(concat('layouts.js'))
-//         .pipe(dest('dist/js'))
-//         .pipe(cache.clear());
-//
-// }
-
-export const generalStyles = () => {
-    return src(['assets/scss/frontend.scss', 'assets/scss/admin.scss'])
-        .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
-        .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie11'})))
-        .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
-        .pipe(dest('dist/css'))
+        .pipe(gulpif(!PRODUCTION, sourcemaps.write('', { sourceRoot: sourceRoot })))
         .pipe(server.stream())
 }
 
-export const layoutStyles = () => {
-    return src(['dotstarter/**/**/*.scss'])
-        .pipe(sass().on('error', sass.logError))
-        .pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
-        .pipe(gulpif(PRODUCTION, cleanCss({compatibility: 'ie11'})))
+function css() {
+    const sources = ['./assets/scss/frontend.scss', './dotstarter/**/**/*.scss']
+
+    return src(sources)
+        .pipe(aliases({
+            "@global": "./assets/scss"
+        }))
+        .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
+        .pipe(sass())
+        .pipe(concat('frontend.css'))
+        .pipe(autoprefixer({
+            overrideBrowserslist: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(rename({
+            extname: '.min.css'
+        }))
+        .pipe(gulpif(!PRODUCTION, cssnano()))
         .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
-        .pipe(dest(file => file.base))
-        .pipe(server.stream());
+        .pipe(dest('./dist/css/'))
+        .pipe(server.stream())
 }
 
-export const watchForChanges = () => {
-    watch(['dotstarter/**/**/*.php'], series(generalScripts, reload));
-    watch('dotstarter/**/**/*.js', series(generalScripts, reload));
-    watch('dotstarter/**/**/*.scss', series(layoutStyles, reload));
+function adminCss() {
+    const sources = ['./assets/scss/admin.scss', './assets/scss/**/*.scss', './dotstarter/**/**/*.scss']
 
-    watch('assets/scss/**/*.scss', series(generalStyles));
-    watch('assets/js/**/*.js', series(generalScripts, reload));
+    return src(sources)
+        .pipe(aliases({
+            "@global": "./assets/scss"
+        }))
+        .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
+        .pipe(sass())
+        .pipe(concat('admin.css'))
+        .pipe(autoprefixer({
+            overrideBrowserslist: ['last 2 versions'],
+            cascade: false
+        }))
+        .pipe(rename({
+            extname: '.min.css'
+        }))
+        .pipe(gulpif(!PRODUCTION, cssnano()))
+        .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
+        .pipe(dest('./dist/css/'))
+        .pipe(server.stream())
 }
 
-export const clean = () => del(['dist']);
+// Watch files
+function watchFiles() {
+    watch(['./assets/scss/admin.scss', './assets/scss/**/*.scss', './dotstarter/**/**/*.scss'], adminCss)
+    watch(['./assets/scss/**/*.scss', './dotstarter/**/**/*.scss'], css)
+    watch(['./assets/js/frontend.js', './assets/js/**/*.js', './dotstarter/**/**/*.js'], js)
+}
 
-const server = browserSync.create();
-
-export const serve = done => {
+// BrowserSync
+function browserSync() {
     server.init({
-        proxy: "clospadulis.test" // TODO gulp config : dynamic proxy URL
+        proxy: process.env.DEV_URL,
+        https: false,
+        port: 3000
     });
-    done();
-};
+}
 
-export const reload = done => {
-    server.reload();
-    done();
-};
+// Tasks to define the execution of the functions simultaneously or in series
+const watchTask = parallel(watchFiles, browserSync);
+export { watchTask }
+export default series(clean, parallel(js, css, adminCss));
 
-export const dev = series(clean, parallel(generalStyles, layoutStyles, generalScripts), serve, watchForChanges);
-export const build = series(clean, generalStyles, layoutStyles, generalScripts)
-export default dev;
