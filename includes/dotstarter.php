@@ -19,6 +19,7 @@ if (!class_exists('DOT_Starter')) {
 			define('DOT_THEME_ASSETS_PATH', get_stylesheet_directory() . '/assets/');
 			define('DOT_THEME_ASSETS_URI', get_stylesheet_directory_uri() . '/assets/');
 
+
 			add_action('tgmpa_register', array($this, 'register_required_plugins'));
 
 			$dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
@@ -49,7 +50,7 @@ if (!class_exists('DOT_Starter')) {
 
 			add_filter('script_loader_tag', array($this, 'set_scripts_type_module_attribute'), 99, 3);
 
-			$this->disable_comments();
+			add_action('admin_init', array($this, 'disable_comments'));
 		}
 
 		/**
