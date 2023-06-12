@@ -4,4 +4,4 @@ vendor
 package-lock.json
 composer.lock
 dist
-layouts/**/*.css
+.env

@@ -1,0 +1,17 @@
+$colors: (
+  black: #000,
+  white: #ffffff,
+  blue: #0000ff,
+);
+
+@function clr($name) {
+  $color: map-get($colors, $name);
+  @return $color;
+}
+
+$clr-body-bg: map-get($colors, white);
+$clr-text-selection: map-get($colors, white);
+$clr-text-selection-bg: map-get($colors, black);
+
+$clr-link: map-get($colors, blue);
+$clr-primary: map-get($colors, blue);

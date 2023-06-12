@@ -1,0 +1,24 @@
+/* ----- BASE ----- */
+/* Legacies, base and overall configurations */
+
+@use "./lib/normalize.css";
+@use "./base/breakpoints-admin";
+@use "./base/variables";
+@use "./base/mixins";
+@use "./base/fonts";
+@use "./base/typography";
+@use "./base/utils";
+
+/* ----- LAYOUT ----- */
+/* Layout and general components style */
+@use "./layout/container";
+@use "./layout/footer";
+@use "./layout/menu";
+
+/* ----- COMPONENTS ----- */
+@use "./components/buttons";
+
+/* ----- TEMPLATES ------------ */
+
+/* ----- ANIMATIONS  ------------ */
+@use "./animations/transitions";

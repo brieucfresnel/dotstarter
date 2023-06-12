@@ -1,0 +1,49 @@
+@use "./variables" as *;
+@use "./colors" as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  font-family: $font-body;
+}
+
+*::selection {
+  background-color: $clr-text-selection-bg !important;
+  color: $clr-text-selection !important;
+  -webkit-text-fill-color: $clr-text-selection !important;
+}
+
+::-moz-selection {
+  background: $clr-text-selection-bg !important;
+  color: $clr-text-selection !important;
+  -webkit-text-fill-color: $clr-text-selection !important;
+}
+
+.noscroll {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  color: $black;
+}
+
+b,
+strong {
+  font-weight: bold;
+}
+
+ul {
+  padding: 0;
+}
+
+.wp-admin ul {
+  list-style-image: initial;
+}

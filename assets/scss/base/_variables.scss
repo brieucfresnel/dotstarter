@@ -1,0 +1,30 @@
+// Fonts
+$font-headings: Arial, serif;
+$font-body: Arial, sans-serif;
+
+// Radiuses
+$radius-sm: 14px;
+$radius: 20px;
+$radius-xl: 50px;
+
+//Breakpoints
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+$screen-xxl: 1400px;
+
+// Container
+$container-margin: 20px;
+$container-margin-xs: 20px;
+$container-margin-sm: 20px;
+$container-margin-md: 20px;
+$container-margin-lg: 20px;
+$container-margin-xl: 20px;
+$container-margin-xxl: 20px;
+$container-max-width: 1800px;
+
+// HAMBURGER ==========================================
+// Possibles values : always / with-breakpoint / none
+$is-hamburger: with-breakpoint;
+$hamburger-breakpoint: $screen-lg;

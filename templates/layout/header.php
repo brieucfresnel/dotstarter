@@ -2,7 +2,7 @@
 <html <?php language_attributes(); ?>>
 
 <head>
-    <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" sizes="180x180" href="<?= DOT_THEME_PATH ?>/assets/favicon/apple-touch-icon.png">
@@ -19,20 +19,9 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class() ?> data-barba="wrapper">
-<?php wp_body_open() ?>
+<body <?php body_class() ?>>
+    <?php wp_body_open() ?>
 
-<input data-url="<?php echo get_template_directory_uri(); ?>" id="templateURL" type="hidden" name="templateURL">
+    <?php get_template_part('templates/layout/menu'); ?>
 
-<div id="panel3">
-    <div id="containerLottieLoading"></div>
-</div>
-
-<div id="transition">
-    <div id="panel2"></div>
-    <div id="panel1"></div>
-</div>
-
-<?php get_template_part('templates/layout/menu'); ?>
-
-<div id="main" data-barba="container">
+    <div id="main">

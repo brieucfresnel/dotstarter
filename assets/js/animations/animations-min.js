@@ -1,1 +1,0 @@
-// import{gsap,Power3,Power4}from"gsap";export function launchPageTransition(){gsap.from(data.next.container,{duration:1,opacity:0}),gsap.to("#panel3",{opacity:0,duration:1}),gsap.to("#panel2",{duration:1,transformOrigin:"bottom right",scaleX:0,ease:Power4.easeInOut,delay:.07}),gsap.to("#panel1",{duration:1,transformOrigin:"bottom right",scaleX:0,ease:Power3.easeInOut})}
