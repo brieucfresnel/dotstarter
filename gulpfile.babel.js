@@ -1,136 +1,163 @@
-import gulp from "gulp";
-const { src, dest, parallel, series, watch } = gulp;
-
-// Load plugins
-import browsersync from 'browser-sync'
-import dotenv from "dotenv";
-import rename from 'gulp-rename'
-import gulpSass from 'gulp-sass'
-import dartSass from 'sass'
-import autoprefixer from 'gulp-autoprefixer'
-import cssnano from 'gulp-cssnano'
-import concat from 'gulp-concat'
-import aliases from 'gulp-style-aliases'
-import gulpif from 'gulp-if'
-import sourcemaps from 'gulp-sourcemaps'
+import gulp from 'gulp';
+import gulpif from "gulp-if";
+import sourcemaps from 'gulp-sourcemaps';
+import { deleteSync } from 'del';
+import webpack from "webpack";
+import gulpWebpack from "webpack-stream";
+import path from 'path';
 import { fileURLToPath } from 'url';
-import path from "path";
-import { rimraf } from "rimraf";
-import webpackStream from "webpack-stream";
-import TerserPlugin from "terser-webpack-plugin";
+import named from "vinyl-named";
+import autoprefixer from "autoprefixer";
+import * as dartSass from "sass";
+import gulpSass from "gulp-sass";
+import postcss from "gulp-postcss";
+import minifyCSS from "gulp-clean-css";
+import rename from "gulp-rename";
+import 'dotenv/config'
+import browsersync from 'browser-sync';
 
-dotenv.config();
 const server = browsersync.create();
-const ENV = process.env.ENVIRONMENT;
-const PRODUCTION = ENV === 'production';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const sourceRoot = path.join(__dirname)
+const ENV = process.env.ENVIRONMENT; // Get from yargs if defined,cli
+const PRODUCTION = ENV === 'production';
 
 const sass = gulpSass(dartSass);
 
-function clean() {
-    return rimraf('dist')
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-function js() {
-    const sourcePaths = ['./assets/js/frontend.js']
+const dest = path.resolve(__dirname, 'dist');
 
-    return src(sourcePaths)
-        .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
-        .pipe(webpackStream({
-            module: {
-                rules: [
-                    {
-                        test: /\.(js)$/,
-                        exclude: /(node_modules)/,
-                        loader: 'babel-loader',
-                        options: {
-                            presets: ['@babel/env']
-                        },
-                        resolve: {
-                            fullySpecified: false,
-                        },
-                    }
+const dirs = {
+  dest,
+  js: dest + '/js',
+  css: dest + '/css',
+};
+
+
+const scripts = [
+  'assets/js/**/*.js'
+]
+
+const scriptsEntryPoint = [
+  'assets/js/frontend.js',
+];
+
+const styles = [
+  'assets/scss/**/*.scss'
+]
+
+const stylesEntryPoints = [
+  'assets/scss/frontend.scss',
+  'assets/scss/admin.scss'
+]
+
+
+const js = (watch = false) => {
+  return gulp.src(scriptsEntryPoint)
+    .pipe(named())
+    .pipe(gulpWebpack({
+      target: 'web',
+      mode: PRODUCTION ? 'production' : 'development',
+      devtool: 'eval-cheap-module-source-map',
+      watch,
+      output: {
+        filename: 'bundle.js',
+      },
+      plugins: [
+        new webpack.DefinePlugin({
+          'process.env.ENV': JSON.stringify(process.env.ENV),
+        })
+      ],
+      module: {
+        rules: [
+          {
+            test: /\.(js|jsx)$/,
+            resolve: {
+              fullySpecified: false,
+            },
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  ['@babel/preset-env', { targets: "defaults" }]
                 ]
+              }
             },
-            mode: ENV,
-            devtool: ENV === 'development' ? 'source-map' : false,
-            output: {
-                publicPath: ".",
-                filename: "bundle.min.js",
-            },
-        }))
-        .pipe(dest('dist/js'))
-        .pipe(gulpif(!PRODUCTION, sourcemaps.write('', { sourceRoot: sourceRoot })))
-        .pipe(server.stream())
+          },
+        ]
+      },
+    }, webpack
+    ))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulp.dest(dirs.js))
+    .pipe(server.stream())
 }
 
-function css() {
-    const sources = ['./assets/scss/frontend.scss', './dotstarter/**/**/*.scss']
-
-    return src(sources)
-        .pipe(aliases({
-            "@global": "./assets/scss"
-        }))
-        .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
-        .pipe(sass())
-        .pipe(concat('frontend.css'))
-        .pipe(autoprefixer({
-            overrideBrowserslist: ['last 2 versions'],
-            cascade: false
-        }))
-        .pipe(rename({
-            extname: '.min.css'
-        }))
-        .pipe(gulpif(!PRODUCTION, cssnano()))
-        .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
-        .pipe(dest('./dist/css/'))
-        .pipe(server.stream())
+/* CSS */
+const css = () => {
+  return gulp.src(stylesEntryPoints)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
+    .pipe(postcss([autoprefixer()]))
+    .pipe(minifyCSS())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(gulpif(!PRODUCTION, sourcemaps.write(dirs.css)))
+    .pipe(gulp.dest(dirs.css))
+    .pipe(server.stream())
 }
 
-function adminCss() {
-    const sources = ['./assets/scss/admin.scss', './assets/scss/**/*.scss', './dotstarter/**/**/*.scss']
 
-    return src(sources)
-        .pipe(aliases({
-            "@global": "./assets/scss"
-        }))
-        .pipe(gulpif(!PRODUCTION, sourcemaps.init()))
-        .pipe(sass())
-        .pipe(concat('admin.css'))
-        .pipe(autoprefixer({
-            overrideBrowserslist: ['last 2 versions'],
-            cascade: false
-        }))
-        .pipe(rename({
-            extname: '.min.css'
-        }))
-        .pipe(gulpif(!PRODUCTION, cssnano()))
-        .pipe(gulpif(!PRODUCTION, sourcemaps.write()))
-        .pipe(dest('./dist/css/'))
-        .pipe(server.stream())
+const buildJS = () => {
+  return js()
 }
 
-// Watch files
-function watchFiles() {
-    watch(['./assets/scss/admin.scss', './assets/scss/**/*.scss', './dotstarter/**/**/*.scss'], adminCss)
-    watch(['./assets/scss/**/*.scss', './dotstarter/**/**/*.scss'], css)
-    watch(['./assets/js/frontend.js', './assets/js/**/*.js', './dotstarter/**/**/*.js'], js)
+const buildCSS = () => {
+  return css()
 }
 
-// BrowserSync
-function browserSync() {
-    server.init({
-        proxy: process.env.DEV_URL,
-        https: false,
-        port: 3000
-    });
+const watchJS = () => {
+  return gulp.watch(scripts, js(true))
 }
 
-// Tasks to define the execution of the functions simultaneously or in series
-const watchTask = parallel(watchFiles, browserSync);
-export { watchTask }
-export default series(clean, parallel(js, css, adminCss));
+const watchCSS = () => {
+  return gulp.watch(styles, css)
+}
 
+const watch = () => {
+  return gulp.parallel(watchJS, gulp.series(cleanCSS, watchCSS))
+}
+
+const clean = (cb) => {
+  deleteSync(dirs.css)
+  deleteSync(dirs.js)
+  cb()
+}
+
+const cleanCSS = (cb) => {
+  deleteSync(dirs.css)
+  cb()
+}
+
+const cleanJS = (cb) => {
+  deleteSync(dirs.js)
+  cb()
+}
+
+const browserSync = () => {
+  server.init({
+    proxy: process.env.DEV_URL,
+    https: false,
+    port: 3000
+  });
+}
+
+gulp.task('dev', gulp.series(clean, gulp.parallel(watch, browserSync)))
+
+gulp.task('watch', gulp.series(clean, gulp.parallel(watchJS, gulp.series(buildCSS, watchCSS))));
+gulp.task('watch:css', gulp.series(cleanCSS, buildCSS, watchCSS))
+gulp.task('watch:js', gulp.series(cleanJS, watchJS))
+
+gulp.task('build', gulp.series(clean, gulp.parallel(buildJS, buildCSS)))
+gulp.task('build:css', gulp.series(cleanCSS, buildCSS))
+gulp.task('build:js', gulp.series(cleanJS, buildJS))
