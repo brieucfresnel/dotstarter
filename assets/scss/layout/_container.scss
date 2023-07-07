@@ -3,35 +3,35 @@
 @use "../base/mixins" as *;
 
 .l-container {
-  margin: 0 auto;
-  width: 100%;
-  max-width: calc(100vw - $container-margin);
+	margin: 0 auto;
+	width: 100%;
+	max-width: calc(100vw - $container-margin);
 
-  @include media-breakpoint-up(xs) {
-    max-width: calc(100vw - $container-margin-xs);
-  }
+	@include media-breakpoint-up(xs) {
+		max-width: calc(100vw - $container-margin-xs);
+	}
 
-  @include media-breakpoint-up(sm) {
-    max-width: calc(100vw - $container-margin-sm);
-  }
+	@include media-breakpoint-up(sm) {
+		max-width: calc(100vw - $container-margin-sm);
+	}
 
-  @include media-breakpoint-up(md) {
-    max-width: calc(100vw - $container-margin-md);
-  }
+	@include media-breakpoint-up(md) {
+		max-width: calc(100vw - $container-margin-md);
+	}
 
-  @include media-breakpoint-up(lg) {
-    max-width: calc(100vw - $container-margin-lg);
-  }
+	@include media-breakpoint-up(lg) {
+		max-width: calc(100vw - $container-margin-lg);
+	}
 
-  @include media-breakpoint-up(xl) {
-    max-width: calc(100vw - $container-margin-xl);
-  }
+	@include media-breakpoint-up(xl) {
+		max-width: calc(100vw - $container-margin-xl);
+	}
 
-  @include media-breakpoint-up(xxl) {
-    max-width: calc(100vw - $container-margin-xxl);
-  }
+	@include media-breakpoint-up(xxl) {
+		max-width: calc(100vw - $container-margin-xxl);
+	}
 
-  @media screen and (min-width: 1880px) {
-    max-width: $container-limit;
-  }
+	@media screen and (min-width: 1880px) {
+		max-width: $container-max-width;
+	}
 }

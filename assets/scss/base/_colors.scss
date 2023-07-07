@@ -1,12 +1,13 @@
 $colors: (
-  black: #000,
-  white: #ffffff,
-  blue: #0000ff,
+	black: #000,
+	white: #ffffff,
+	blue: #0000ff,
+	blue-dot: #0000ff,
 );
 
 @function clr($name) {
-  $color: map-get($colors, $name);
-  @return $color;
+	$color: map-get($colors, $name);
+	@return $color;
 }
 
 $clr-body-bg: map-get($colors, white);

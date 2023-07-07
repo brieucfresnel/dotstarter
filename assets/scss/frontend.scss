@@ -6,15 +6,15 @@
 @use "./base/variables";
 @use "./base/mixins";
 @use "./base/fonts";
-@use "./base/typography";
+@use "./typography/typography";
 @use "./base/base";
 @use "./base/utils";
 
 /* ----- LAYOUT ----- */
 /* Layout and general components style */
 @use "./layout/container";
+@use "./layout/header";
 @use "./layout/footer";
-@use "./layout/menu";
 
 /* ----- COMPONENTS ----- */
 @use "./components/layout";
@@ -22,8 +22,8 @@
 @use "./components/wysiwyg";
 
 /* ----- TEMPLATES ------------ */
-@use "./templates/template-404";
-@use "./templates/template-legal";
+@use "./templates/four-oh-four";
+@use "./templates/legal";
 
 /* ----- ANIMATIONS  ------------ */
 @use "./animations/transitions";

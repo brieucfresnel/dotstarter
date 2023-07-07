@@ -1,0 +1,112 @@
+@use "../base/variables" as *;
+
+$titles: (
+	mobile: (
+		1: (
+			font-size: 3.0625rem,
+			line-height: 1.2,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		2: (
+			font-size: 2.3125rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		3: (
+			font-size: 1.8125rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		4: (
+			font-size: 1.4375rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		5: (
+			font-size: 1.125rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		6: (
+			font-size: 0.875rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+	),
+	desktop: (
+		1: (
+			font-size: 4.875rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		2: (
+			font-size: 3.875rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		3: (
+			font-size: 3.125rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		4: (
+			font-size: 2.5rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		5: (
+			font-size: 1.9375rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+		6: (
+			font-size: 1.5rem,
+			line-height: 1,
+			font-weight: 400,
+			font-family: $font-headings,
+		),
+	),
+);
+
+// ========== BODY FONTS ==========
+
+$body: (
+	mobile: (
+		xxl: (
+			font-size: 2.1875rem,
+			line-height: 2.4063rem,
+			font-weight: 300,
+			font-family: $font-body,
+		),
+		xl: (
+			font-size: 1.3125rem,
+			line-height: 1.575rem,
+			font-weight: 300,
+			font-family: $font-body,
+		),
+		lg: (
+			font-size: 1.1875rem,
+			line-height: 1.425rem,
+			font-weight: 300,
+			font-family: $font-body,
+		),
+		md: (
+			font-size: 1.0625rem,
+			line-height: 1.275rem,
+			font-weight: 400,
+			font-family: $font-body,
+		),
+	),
+	desktop: (),
+);

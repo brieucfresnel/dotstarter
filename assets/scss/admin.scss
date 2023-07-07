@@ -6,14 +6,14 @@
 @use "./base/variables";
 @use "./base/mixins";
 @use "./base/fonts";
-@use "./base/typography";
+@use "./typography/typography-admin";
 @use "./base/utils";
 
 /* ----- LAYOUT ----- */
 /* Layout and general components style */
 @use "./layout/container";
+@use "./layout/header";
 @use "./layout/footer";
-@use "./layout/menu";
 
 /* ----- COMPONENTS ----- */
 @use "./components/buttons";
