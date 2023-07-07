@@ -10,8 +10,9 @@
     "build:js": "gulp build:js",
     "watch:css": "gulp watch:css",
     "watch:css:all": "gulp watch:css:all",
-    "watch:js": "gulp watch:js",
-    "watch": "gulp watch"
+    "watch:js": "gulp build:js --watch-files",
+    "watch": "gulp watch --watch-files",
+    "dev": "gulp dev --watch-files"
   },
   "type": "module",
   "author": "",

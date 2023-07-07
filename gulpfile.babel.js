@@ -15,11 +15,17 @@ import minifyCSS from "gulp-clean-css";
 import rename from "gulp-rename";
 import 'dotenv/config'
 import browsersync from 'browser-sync';
+import yargs from 'yargs'
+import { hideBin } from 'yargs/helpers'
 
 const server = browsersync.create();
 
+const args = yargs(process.argv.slice(2)).argv;
+
+
 const ENV = process.env.ENVIRONMENT; // Get from yargs if defined,cli
 const PRODUCTION = ENV === 'production';
+
 
 const sass = gulpSass(dartSass);
 
@@ -36,7 +42,8 @@ const dirs = {
 
 
 const scripts = [
-  'assets/js/**/*.js'
+  'assets/js/**/*.js',
+  'dotstarter/**.*.js'
 ]
 
 const scriptsEntryPoint = [
@@ -52,15 +59,31 @@ const stylesEntryPoints = [
   'assets/scss/admin.scss'
 ]
 
+const clean = (cb) => {
+  deleteSync(dirs.css)
+  deleteSync(dirs.js)
+  cb()
+}
 
-const js = (watch = false) => {
+const cleanCSS = (cb) => {
+  deleteSync(dirs.css)
+  cb()
+}
+
+const cleanJS = (cb) => {
+  deleteSync(dirs.js)
+  cb()
+}
+
+const js = async () => {
+
   return gulp.src(scriptsEntryPoint)
     .pipe(named())
     .pipe(gulpWebpack({
       target: 'web',
       mode: PRODUCTION ? 'production' : 'development',
       devtool: 'eval-cheap-module-source-map',
-      watch,
+      watch: args.watchFiles,
       output: {
         filename: 'bundle.js',
       },
@@ -75,6 +98,9 @@ const js = (watch = false) => {
             test: /\.(js|jsx)$/,
             resolve: {
               fullySpecified: false,
+              alias: {
+                '@': path.join(__dirname, '/assets/js/')
+              }
             },
             use: {
               loader: 'babel-loader',
@@ -107,41 +133,12 @@ const css = () => {
     .pipe(server.stream())
 }
 
-
-const buildJS = () => {
-  return js()
-}
-
-const buildCSS = () => {
-  return css()
-}
-
 const watchJS = () => {
-  return gulp.watch(scripts, js(true))
+  return gulp.watch(scripts, js)
 }
 
 const watchCSS = () => {
   return gulp.watch(styles, css)
-}
-
-const watch = () => {
-  return gulp.parallel(watchJS, gulp.series(cleanCSS, watchCSS))
-}
-
-const clean = (cb) => {
-  deleteSync(dirs.css)
-  deleteSync(dirs.js)
-  cb()
-}
-
-const cleanCSS = (cb) => {
-  deleteSync(dirs.css)
-  cb()
-}
-
-const cleanJS = (cb) => {
-  deleteSync(dirs.js)
-  cb()
 }
 
 const browserSync = () => {
@@ -152,12 +149,10 @@ const browserSync = () => {
   });
 }
 
-gulp.task('dev', gulp.series(clean, gulp.parallel(watch, browserSync)))
+gulp.task('watch:css', gulp.series(cleanCSS, css, watchCSS))
+gulp.task('watch', gulp.series(clean, gulp.series(gulp.parallel(js, css), gulp.parallel(watchJS, watchCSS))))
+gulp.task('dev', gulp.series(clean, gulp.parallel('watch', browserSync)))
 
-gulp.task('watch', gulp.series(clean, gulp.parallel(watchJS, gulp.series(buildCSS, watchCSS))));
-gulp.task('watch:css', gulp.series(cleanCSS, buildCSS, watchCSS))
-gulp.task('watch:js', gulp.series(cleanJS, watchJS))
-
-gulp.task('build', gulp.series(clean, gulp.parallel(buildJS, buildCSS)))
-gulp.task('build:css', gulp.series(cleanCSS, buildCSS))
-gulp.task('build:js', gulp.series(cleanJS, buildJS))
+gulp.task('build', gulp.series(clean, gulp.parallel(js, css)))
+gulp.task('build:css', gulp.series(cleanCSS, css))
+gulp.task('build:js', gulp.series(cleanJS, js))
