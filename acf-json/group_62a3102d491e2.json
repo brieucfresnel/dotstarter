@@ -6,6 +6,7 @@
             "key": "field_62a310329136b",
             "label": "Configuration",
             "name": "",
+            "aria-label": "",
             "type": "tab",
             "instructions": "",
             "required": 0,
@@ -19,47 +20,10 @@
             "endpoint": 0
         },
         {
-            "key": "field_62a310419136c",
-            "label": "Clé API Google Maps",
-            "name": "key_gmaps",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_62a3104c9136d",
-            "label": "Clé API Instagram",
-            "name": "key_insta",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
             "key": "field_62a353a3c5105",
             "label": "ID Google Tag Manager",
             "name": "key_gtm",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -74,30 +38,12 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
-        },
-        {
-            "key": "field_62a7469ac6610",
-            "label": "Activer Barba.js",
-            "name": "barba",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 1,
-            "ui_on_text": "Activé",
-            "ui_off_text": "Désactivé"
         },
         {
             "key": "field_62a3111e499e4",
             "label": "Header",
             "name": "",
+            "aria-label": "",
             "type": "tab",
             "instructions": "",
             "required": 0,
@@ -114,6 +60,7 @@
             "key": "field_62a31127499e5",
             "label": "Logo",
             "name": "logo",
+            "aria-label": "",
             "type": "image",
             "instructions": "",
             "required": 0,
@@ -140,6 +87,7 @@
             "key": "field_62a31139499e6",
             "label": "Footer",
             "name": "",
+            "aria-label": "",
             "type": "tab",
             "instructions": "",
             "required": 0,
@@ -153,46 +101,10 @@
             "endpoint": 0
         },
         {
-            "key": "field_62c43924335c6",
-            "label": "Liens du menu",
-            "name": "footer_menu_links",
-            "type": "repeater",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "acfe_repeater_stylised_button": 0,
-            "collapsed": "",
-            "min": 0,
-            "max": 0,
-            "layout": "table",
-            "button_label": "",
-            "sub_fields": [
-                {
-                    "key": "field_62c4393c335c7",
-                    "label": "Link",
-                    "name": "link",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "array"
-                }
-            ]
-        },
-        {
             "key": "field_62c2fada8e6be",
             "label": "Contact",
             "name": "",
+            "aria-label": "",
             "type": "tab",
             "instructions": "",
             "required": 0,
@@ -209,6 +121,7 @@
             "key": "field_62c2fae48e6bf",
             "label": "Numéro de téléphone",
             "name": "phone",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -228,6 +141,7 @@
             "key": "field_62c2fafb8e6c0",
             "label": "Adresse e-mail",
             "name": "email",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -247,6 +161,7 @@
             "key": "field_62c2fb038e6c1",
             "label": "Adresse",
             "name": "address",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -289,5 +204,5 @@
     "acfe_form": 0,
     "acfe_meta": "",
     "acfe_note": "",
-    "modified": 1661175623
+    "modified": 1688736277
 }
