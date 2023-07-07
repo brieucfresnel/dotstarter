@@ -2,23 +2,15 @@
 
 
 if (!class_exists('DOT_Starter')) {
-	class DOT_Starter
-	{
+	class DOT_Starter {
+
 		/**
+		 * Init : set constants, load files, set hooks
+		 *
 		 * @throws Exception
 		 */
-		public function __construct()
-		{
+		public function __construct() {
 			require_once(get_stylesheet_directory() . '/vendor/autoload.php');
-
-			define('DOT_THEME_PATH', get_stylesheet_directory());
-			define('DOT_THEME_URI', get_stylesheet_directory_uri());
-			define('DOT_THEME_INCLUDES_PATH', get_stylesheet_directory() . '/includes/');
-			define('DOT_THEME_LAYOUTS_PATH', get_stylesheet_directory() . '/dotstarter/layouts/');
-			define('DOT_THEME_LAYOUTS_URI', get_stylesheet_directory_uri() . '/dotstarter/layouts/');
-			define('DOT_THEME_ASSETS_PATH', get_stylesheet_directory() . '/assets/');
-			define('DOT_THEME_ASSETS_URI', get_stylesheet_directory_uri() . '/assets/');
-
 
 			add_action('tgmpa_register', array($this, 'register_required_plugins'));
 
@@ -54,10 +46,11 @@ if (!class_exists('DOT_Starter')) {
 		}
 
 		/**
+		 * Set theme supports
+		 *
 		 * @return void
 		 */
-		public function theme_setup()
-		{
+		public function theme_setup() {
 			add_theme_support('post-thumbnails');
 			add_theme_support('title-tag');
 			add_theme_support('custom-logo', array(
@@ -67,12 +60,14 @@ if (!class_exists('DOT_Starter')) {
 				'flex-width' => true,
 				'header-text' => array('site-title', 'site-description'),
 			));
-
-			add_image_size('2xlarge', 2560, 1440);
 		}
 
-		public function register_nav_menus()
-		{
+		/**
+		 * Register menus
+		 *
+		 * @return void
+		 */
+		public function register_nav_menus() {
 			register_nav_menus(array(
 				'main-menu' => __('Main Menu', 'dotstarter'),
 				'side-menu' => __('Side Menu', 'dotstarter'),
@@ -82,29 +77,40 @@ if (!class_exists('DOT_Starter')) {
 
 
 		/**
+		 * Enqueue front-end styles
+		 *
 		 * @return void
 		 */
-		public function enqueue_styles()
-		{
-			wp_enqueue_style('frontend', DOT_THEME_URI . '/dist/css/frontend.min.css', array(), @filemtime(DOT_THEME_PATH . '/dist/css/frontend.min.css'));
+		public function enqueue_styles() {
+			wp_enqueue_style('frontend', DOT_THEME_URI . '/dist/css/frontend.min.css', null, filemtime(DOT_THEME_PATH . '/dist/css/frontend.min.css'));
 		}
 
 		/**
+		 * Enqueue admin styles
+		 *
 		 * @return void
 		 */
-		public function enqueue_scripts()
-		{
+		public function enqueue_admin_scripts() {
+			wp_enqueue_style('dotstarter-admin-css', DOT_THEME_URI . '/dist/css/admin.min.css', array(), @filemtime(DOT_THEME_PATH . '/dist/css/admin.min.css'));
+		}
+
+
+		/**
+		 * Enqueue front-end scripts
+		 *
+		 * @return void
+		 */
+		public function enqueue_scripts() {
 			wp_enqueue_script('jquery');
 			wp_enqueue_script('detect-autofill', 'https://unpkg.com/detect-autofill/dist/detect-autofill.js', array(), null, true);
 
-			wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/bundle.min.js', array('jquery', 'slick', 'detect-autofill'), @filemtime(DOT_THEME_PATH . '/dist/js/bundle.min.js'), true);
+			wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/bundle.min.js', array('jquery', 'detect-autofill'), filemtime(DOT_THEME_PATH . '/dist/js/bundle.min.js'), true);
 
 			if (get_field('gmaps_api_key', 'option')) {
 				wp_enqueue_script('google-map', 'https://maps.googleapis.com/maps/api/js?key=' . get_field('gmaps_api_key', 'option'), array(), '3', true);
 			}
 
-			// Inject PHP variables to frontend.js
-
+			// Inject variables from PHP to front-end scripts
 			$is_first_visit = acf_maybe_get($_SESSION, '_dot_is_first_visit');
 			$args = array(
 				'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -116,21 +122,12 @@ if (!class_exists('DOT_Starter')) {
 			wp_localize_script('dotstarter-frontend', 'ajaxConfig', $args);
 		}
 
-		public function enqueue_admin_scripts()
-		{
-			if (!is_edit_page_type_page())
-				return;
-
-			wp_enqueue_style('dotstarter-admin-css', DOT_THEME_URI . '/dist/css/admin.min.css');
-		}
-
 		/**
 		 * Remove Gutenberg default styles
 		 *
 		 * @return void
 		 */
-		function remove_wp_block_library_css()
-		{
+		function remove_wp_block_library_css() {
 			wp_dequeue_style('wp-block-library');
 			wp_dequeue_style('wp-block-library-theme');
 			wp_dequeue_style('wc-block-style'); // REMOVE WOOCOMMERCE BLOCK CSS
@@ -138,13 +135,12 @@ if (!class_exists('DOT_Starter')) {
 		}
 
 		/**
-		 * adds new MIME types to file upload whitelist
+		 * Add new MIME types to file upload whitelist
 		 *
 		 * @param $file_types
 		 * @return array
 		 */
-		public function add_mime_types_to_upload_whitelist($file_types): array
-		{
+		public function add_mime_types_to_upload_whitelist($file_types): array {
 			$new_filetypes = array();
 			$new_filetypes['svg'] = 'image/svg+xml';
 			$new_filetypes['webp'] = 'image/webp';
@@ -152,14 +148,18 @@ if (!class_exists('DOT_Starter')) {
 			return array_merge($file_types, $new_filetypes);
 		}
 
-		public function set_scripts_type_module_attribute($tag, $handle, $src)
-		{
+		/**
+		 * Add module type to front-end scripts
+		 *
+		 * @param [type] $tag
+		 * @param [type] $handle
+		 * @param [type] $src
+		 * @return void
+		 */
+		public function set_scripts_type_module_attribute($tag, $handle, $src) {
 			// if not your script, do nothing and return original $tag
 
-			if (
-				!str_contains($handle, 'dotstarter-frontend') &&
-				!str_contains($handle, 'layout')
-			) {
+			if (!str_contains($handle, 'dotstarter-frontend')) {
 				return $tag;
 			}
 			// change the script tag by adding type="module" and return it.
@@ -173,8 +173,7 @@ if (!class_exists('DOT_Starter')) {
 		 *
 		 * @return void
 		 */
-		public function disable_comments()
-		{
+		public function disable_comments() {
 			// Close comments on the front-end
 			add_filter('comments_open', '__return_false', 20, 2);
 			add_filter('pings_open', '__return_false', 20, 2);
@@ -215,11 +214,12 @@ if (!class_exists('DOT_Starter')) {
 		}
 
 		/**
+		 * Will indicate which plugins need to be installed on the admin interface
+		 *
 		 * @return void
 		 * @throws Exception
 		 */
-		public function register_required_plugins()
-		{
+		public function register_required_plugins() {
 			$plugins = array(
 
 				// Plug-ins that need licence key
