@@ -1,1 +1,45 @@
 @use "./colors" as *;
+@use "./mixins" as *;
+
+.u-grid {
+	--cols: 1;
+
+	display: grid;
+	grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+
+	@include media-breakpoint-up(xs) {
+		.u-grid--4 {
+			--cols: 2;
+		}
+	}
+
+	@include media-breakpoint-up(sm) {
+		.u-grid--3 {
+			--cols: 3;
+		}
+	}
+
+	@include media-breakpoint-up(md) {
+		.u-grid-4 {
+			--cols: 4;
+		}
+	}
+}
+
+$gaps: (30, 50, 75, 100, 150);
+
+@each $gapSize in $gaps {
+	.u-gap-#{$gapSize} {
+		gap: #{$gapSize}px;
+	}
+}
+
+@each $label, $colorValue in $colors {
+	.u-color-#{$label} {
+		color: #{$colorValue};
+	}
+
+	.u-bg-#{$label} {
+		background-color: #{$colorValue};
+	}
+}
