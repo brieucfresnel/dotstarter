@@ -13,7 +13,7 @@
     "watch:js": "gulp build:js --watch-files",
     "watch": "gulp watch --watch-files",
     "dev": "gulp dev --watch-files",
-    "lint": "eslint .",
+    "lint": "eslint ."
   },
   "type": "module",
   "author": "",
