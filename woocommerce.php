@@ -2,6 +2,8 @@
 
 get_header();
 
-woocommerce_content();
+if (function_exists('woocommerce_content')) {
+    woocommerce_content();
+}
 
 get_footer();

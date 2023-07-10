@@ -5,8 +5,7 @@
  *
  * @return void
  */
-function dot_add_mce_button()
-{
+function dot_add_mce_button() {
     if (!current_user_can('edit_posts') &&  !current_user_can('edit_pages')) {
         return;
     }
@@ -25,20 +24,18 @@ add_action('admin_head', 'dot_add_mce_button');
  * @param [type] $buttons
  * @return void
  */
-function dot_register_mce_buttons($buttons)
-{
+function dot_register_mce_buttons($buttons) {
     array_push($buttons, 'dot_tinymce_plugin');
     return $buttons;
 }
 
 /**
- * Register custom TinyMCE plugin 
+ * Register custom TinyMCE plugin
  *
  * @param [type] $plugin_array
  * @return void
  */
-function dot_add_tinymce_plugin($plugin_array)
-{
+function dot_add_tinymce_plugin($plugin_array) {
     $plugin_array['dot_tinymce_plugin'] = get_stylesheet_directory_uri() . '/assets/js/tinymce/tinymce.js';
     return $plugin_array;
 }

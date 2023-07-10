@@ -35,6 +35,7 @@
     "gulp-sourcemaps": "^3.0.0",
     "postcss": "^8.4.24",
     "sass": "^1.63.6",
+    "standard": "^17.1.0",
     "vinyl-named": "^1.1.0",
     "webpack": "^5.88.1",
     "webpack-stream": "^7.0.0",

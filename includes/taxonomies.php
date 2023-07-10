@@ -1,15 +1,12 @@
 <?php
 
 if (!class_exists('DOT_Taxonomies')) {
-    class DOT_Taxonomies
-    {
-        public function __construct()
-        {
+    class DOT_Taxonomies {
+        public function __construct() {
             add_action('init', array($this, 'register_taxonomies'));
         }
 
-        public function register_taxonomies()
-        {
+        public function register_taxonomies() {
             // $labels = array(
             //     'name' => 'Taxonomie',
             //     'singular_name' => 'Taxonomie',
