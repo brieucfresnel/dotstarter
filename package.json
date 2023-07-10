@@ -12,7 +12,8 @@
     "watch:css:all": "gulp watch:css:all",
     "watch:js": "gulp build:js --watch-files",
     "watch": "gulp watch --watch-files",
-    "dev": "gulp dev --watch-files"
+    "dev": "gulp dev --watch-files",
+    "lint": "eslint .",
   },
   "type": "module",
   "author": "",
