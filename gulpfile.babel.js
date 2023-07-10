@@ -1,45 +1,41 @@
-import gulp from 'gulp';
-import gulpif from "gulp-if";
-import sourcemaps from 'gulp-sourcemaps';
-import { deleteSync } from 'del';
-import webpack from "webpack";
-import gulpWebpack from "webpack-stream";
-import path from 'path';
-import { fileURLToPath } from 'url';
-import named from "vinyl-named";
-import autoprefixer from "autoprefixer";
-import * as dartSass from "sass";
-import gulpSass from "gulp-sass";
-import postcss from "gulp-postcss";
-import minifyCSS from "gulp-clean-css";
-import rename from "gulp-rename";
+import gulp from 'gulp'
+import gulpif from 'gulp-if'
+import sourcemaps from 'gulp-sourcemaps'
+import { deleteSync } from 'del'
+import webpack from 'webpack'
+import gulpWebpack from 'webpack-stream'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import named from 'vinyl-named'
+import autoprefixer from 'autoprefixer'
+import * as dartSass from 'sass'
+import gulpSass from 'gulp-sass'
+import postcss from 'gulp-postcss'
+import minifyCSS from 'gulp-clean-css'
+import rename from 'gulp-rename'
 import 'dotenv/config'
-import browsersync from 'browser-sync';
+import browsersync from 'browser-sync'
 import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
 
-const server = browsersync.create();
+const server = browsersync.create()
 
-const args = yargs(process.argv.slice(2)).argv;
+const args = yargs(process.argv.slice(2)).argv
 
+const ENV = process.env.ENVIRONMENT // Get ENV from yargs if defined
+const PRODUCTION = ENV === 'production'
 
-const ENV = process.env.ENVIRONMENT; // Get from yargs if defined,cli
-const PRODUCTION = ENV === 'production';
+const sass = gulpSass(dartSass)
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const sass = gulpSass(dartSass);
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const dest = path.resolve(__dirname, 'dist');
+const dest = path.resolve(__dirname, 'dist')
 
 const dirs = {
   dest,
   js: dest + '/js',
-  css: dest + '/css',
-};
-
+  css: dest + '/css'
+}
 
 const scripts = [
   'assets/js/**/*.js',
@@ -47,8 +43,8 @@ const scripts = [
 ]
 
 const scriptsEntryPoint = [
-  'assets/js/frontend.js',
-];
+  'assets/js/frontend.js'
+]
 
 const styles = [
   'assets/scss/**/*.scss'
@@ -76,7 +72,6 @@ const cleanJS = (cb) => {
 }
 
 const js = async () => {
-
   return gulp.src(scriptsEntryPoint)
     .pipe(named())
     .pipe(gulpWebpack({
@@ -85,11 +80,11 @@ const js = async () => {
       devtool: 'eval-cheap-module-source-map',
       watch: args.watchFiles,
       output: {
-        filename: 'bundle.js',
+        filename: 'bundle.js'
       },
       plugins: [
         new webpack.DefinePlugin({
-          'process.env.ENV': JSON.stringify(process.env.ENV),
+          'process.env.ENV': JSON.stringify(process.env.ENV)
         })
       ],
       module: {
@@ -106,13 +101,13 @@ const js = async () => {
               loader: 'babel-loader',
               options: {
                 presets: [
-                  ['@babel/preset-env', { targets: "defaults" }]
+                  ['@babel/preset-env', { targets: 'defaults' }]
                 ]
               }
-            },
-          },
+            }
+          }
         ]
-      },
+      }
     }, webpack
     ))
     .pipe(rename({ suffix: '.min' }))
@@ -146,7 +141,7 @@ const browserSync = () => {
     proxy: process.env.DEV_URL,
     https: false,
     port: 3000
-  });
+  })
 }
 
 gulp.task('watch:css', gulp.series(cleanCSS, css, watchCSS))
