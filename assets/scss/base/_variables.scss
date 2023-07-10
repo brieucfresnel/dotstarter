@@ -28,3 +28,13 @@ $container-max-width: 1800px;
 // Possibles values : always / with-breakpoint / none
 $is-hamburger: with-breakpoint;
 $hamburger-breakpoint: $screen-lg;
+
+$z-layers: (
+	"header": (
+		"base": 30,
+		"open": 100,
+		"overlay": 50,
+	),
+	"slider": 20,
+	"modal": 20,
+);
