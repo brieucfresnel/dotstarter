@@ -43,6 +43,9 @@ if (!class_exists('DOT_Starter')) {
 			add_filter('script_loader_tag', array($this, 'set_scripts_type_module_attribute'), 99, 3);
 
 			add_action('admin_init', array($this, 'disable_comments'));
+
+			// Modifier le logo sur la page de connexion à l'administration
+			add_action('login_enqueue_scripts', array($this, 'login_page_custom_logo'));
 		}
 
 		/**
@@ -73,6 +76,16 @@ if (!class_exists('DOT_Starter')) {
 				'side-menu' => __('Side Menu', 'dotstarter'),
 				'legal-menu' => __('Legal Menu', 'dotstarter'),
 			));
+		}
+
+		function login_page_custom_logo() { ?>
+			<style type="text/css">
+				#login h1 a,
+				.login h1 a {
+					background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/assets/img/logo-dot-black.svg);
+				}
+			</style>
+<?php
 		}
 
 
