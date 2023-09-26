@@ -7,27 +7,27 @@
 	width: 100%;
 	max-width: calc(100vw - $container-margin);
 
-	@include media-breakpoint-up(xs) {
+	@include media-up(xs) {
 		max-width: calc(100vw - $container-margin-xs);
 	}
 
-	@include media-breakpoint-up(sm) {
+	@include media-up(sm) {
 		max-width: calc(100vw - $container-margin-sm);
 	}
 
-	@include media-breakpoint-up(md) {
+	@include media-up(md) {
 		max-width: calc(100vw - $container-margin-md);
 	}
 
-	@include media-breakpoint-up(lg) {
+	@include media-up(lg) {
 		max-width: calc(100vw - $container-margin-lg);
 	}
 
-	@include media-breakpoint-up(xl) {
+	@include media-up(xl) {
 		max-width: calc(100vw - $container-margin-xl);
 	}
 
-	@include media-breakpoint-up(xxl) {
+	@include media-up(xxl) {
 		max-width: calc(100vw - $container-margin-xxl);
 	}
 

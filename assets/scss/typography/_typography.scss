@@ -35,7 +35,7 @@
 	}
 }
 
-@include media-breakpoint-up(md) {
+@include media-up(md) {
 	@each $size, $title in map-get($titles, desktop) {
 		h#{$size},
 		.heading#{$size} {

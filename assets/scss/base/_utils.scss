@@ -7,19 +7,19 @@
 	display: grid;
 	grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
 
-	@include media-breakpoint-up(xs) {
+	@include media-up(xs) {
 		.u-grid--4 {
 			--cols: 2;
 		}
 	}
 
-	@include media-breakpoint-up(sm) {
+	@include media-up(sm) {
 		.u-grid--3 {
 			--cols: 3;
 		}
 	}
 
-	@include media-breakpoint-up(md) {
+	@include media-up(md) {
 		.u-grid-4 {
 			--cols: 4;
 		}
