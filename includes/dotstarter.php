@@ -82,10 +82,10 @@ if (!class_exists('DOT_Starter')) {
             <style type="text/css">
                 #login h1 a,
                 .login h1 a {
-                    background-image: url(<?php echo get_stylesheet_directory_uri(); ?>/assets/img/logo-dot-black.svg);
+                    background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/assets/img/logo-dot-black.svg');
                 }
             </style>
-<?php }
+        <?php }
 
 
         /**
@@ -114,7 +114,6 @@ if (!class_exists('DOT_Starter')) {
          */
         public function enqueue_scripts() {
             wp_enqueue_script('jquery');
-            wp_enqueue_script('detect-autofill', 'https://unpkg.com/detect-autofill/dist/detect-autofill.js', array(), null, true);
 
             wp_enqueue_script('dotstarter-frontend', DOT_THEME_URI . '/dist/js/bundle.min.js', array('jquery', 'detect-autofill'), filemtime(DOT_THEME_PATH . '/dist/js/bundle.min.js'), true);
 
@@ -233,7 +232,6 @@ if (!class_exists('DOT_Starter')) {
          */
         public function register_required_plugins() {
             $plugins = array(
-
                 // Plug-ins that need licence key
                 array(
                     'name' => 'Advanced Custom Fields Pro',
@@ -257,22 +255,6 @@ if (!class_exists('DOT_Starter')) {
                     'slug' => 'acf-extended',
                     'required' => true,
                 ),
-                array(
-                    'name' => 'Yoast SEO',
-                    'slug' => 'wordpress-seo',
-                    'required' => true,
-                ),
-                array(
-                    'name' => 'Better Search Replace',
-                    'slug' => 'better-search-replace',
-                    'required' => false,
-                ),
-                array(
-                    'name' => 'What The File',
-                    'slug' => 'what-the-file',
-                    'required' => false,
-                ),
-
                 // DotCore
                 array(
                     'name' => 'DOT Core',
