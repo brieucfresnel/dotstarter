@@ -259,7 +259,7 @@
 }
 
 // Slide Bottom To Top
-.slide-btt {
+.a-slide-btt {
 	transition: all 1s $Power3EaseInOut;
 	clip-path: polygon(0 100%, 0 100%, 100% 100%, 100% 100%);
 
@@ -270,7 +270,7 @@
 }
 
 // Slide Top To Bottom
-.slide-ttb {
+.a-slide-ttb {
 	transition: all 1s $Power3EaseInOut;
 	clip-path: polygon(0 100%, 0 100%, 100% 100%, 100% 100%);
 
@@ -281,7 +281,7 @@
 }
 
 // Slide Left To Right
-.slide-ltr {
+.a-slide-ltr {
 	transition: all 1s $Power4EaseInOut;
 	clip-path: polygon(0 0, 0 0%, 0 100%, 0 100%);
 
@@ -291,7 +291,7 @@
 	}
 }
 
-.slide-rtl {
+.a-slide-rtl {
 	transition: all 1s $Power4EaseInOut;
 	clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
 
